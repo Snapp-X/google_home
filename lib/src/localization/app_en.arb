@@ -1,0 +1,6 @@
+{
+  "appTitle": "google_home",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
