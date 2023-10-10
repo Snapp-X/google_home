@@ -34,14 +34,44 @@ class HomeContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
         gradient: colorMode == ColorMode.gradient
             ? const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xff18181e), Color(0xff2e2e3d)],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Color(0x7f18181e),
+                  Color(0x7f2a2a37),
+                ],
               )
             : null,
         color: colorMode == ColorMode.solid ? const Color(0xFF1e1e26) : null,
       ),
       child: child,
     );
+  }
+}
+
+/// Gap between items in a list.
+class Gap extends StatelessWidget {
+  const Gap._({
+    super.key,
+    this.width,
+    this.height,
+  });
+
+  const Gap.horizontal(
+    double width, {
+    Key? key,
+  }) : this._(key: key, width: width);
+
+  const Gap.vertical(
+    double height, {
+    Key? key,
+  }) : this._(key: key, height: height);
+
+  final double? width;
+  final double? height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: width, height: height);
   }
 }
