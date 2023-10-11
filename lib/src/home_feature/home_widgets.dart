@@ -11,15 +11,17 @@ class HomeContainer extends StatelessWidget {
     this.height,
     this.borderRadius = 15,
     this.colorMode = ColorMode.solid,
+    this.child,
+    this.color,
     this.padding = EdgeInsets.zero,
     this.margin = EdgeInsets.zero,
-    this.child,
   });
 
   final double? width;
   final double? height;
   final double borderRadius;
   final ColorMode colorMode;
+  final Color? color;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
 
@@ -44,7 +46,9 @@ class HomeContainer extends StatelessWidget {
                 ],
               )
             : null,
-        color: colorMode == ColorMode.solid ? const Color(0xFF1e1e26) : null,
+        color: colorMode == ColorMode.solid
+            ? color ?? const Color(0xFF1e1e26)
+            : null,
       ),
       child: child,
     );
@@ -89,12 +93,13 @@ class WetherCard extends StatelessWidget {
     return HomeContainer(
       height: double.infinity,
       colorMode: ColorMode.gradient,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
       borderRadius: 20,
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Gap.vertical(2),
+          Text(
             'WEATHER',
             style: theme.textTheme.labelSmall?.copyWith(
               height: 1.2,
@@ -103,7 +108,56 @@ class WetherCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
-        ),
+          const Gap.vertical(8),
+          const HomeContainer(
+            height: 150,
+            width: double.infinity,
+            color: Colors.white12,
+          ),
+          const Gap.vertical(8),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '18.2°',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'Moderate rain\nLondon',
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    fontSize: 8,
+                    fontWeight: FontWeight.w500,
+                    color:
+                        Theme.of(context).colorScheme.onSurface.withOpacity(.5),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Spacer(),
+          Text(
+            '01:20 AM',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          Text(
+            'Thu, Oct 9 2023',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
+            ),
+          ),
+        ],
       ),
     );
   }
