@@ -13,116 +13,116 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF18181E),
+      backgroundColor: const Color(0xFF18181E),
       body: Padding(
         padding: _viewPadding,
-        child: LayoutBuilder(builder: (context, constraints) {
-          print(constraints);
-
-          return const Center(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 7,
-                  child: HomeContainer(
-
-                    height: double.infinity,
-                    colorMode: ColorMode.gradient,
-                    borderRadius: 20,
-                  ),
+        child: Center(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Expanded(
+                flex: 7,
+                child: WetherCard(),
+              ),
+              const Gap.horizontal(_itemsGap),
+              Expanded(
+                flex: 18,
+                child: Column(
+                  children: [
+                    const Expanded(
+                      flex: 5,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: LightCard(),
+                          ),
+                          Gap.horizontal(_itemsGap),
+                          Expanded(
+                            flex: 4,
+                            child: PowerCard(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Gap.vertical(_itemsGap),
+                    const Expanded(
+                      flex: 2,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AirRelatedCard(
+                              title: "AIR QUALITY",
+                              value: "POOR",
+                            ),
+                          ),
+                          Gap.horizontal(_itemsGap),
+                          Expanded(
+                            child: AirRelatedCard(
+                              title: "TEMPERATURE",
+                              value: "22.4°C",
+                            ),
+                          ),
+                          Gap.horizontal(_itemsGap),
+                          Expanded(
+                            child: AirRelatedCard(
+                              title: "HUMIDITY",
+                              value: "43.3%",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Gap.vertical(_itemsGap),
+                    Expanded(
+                      flex: 3,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SwitchCard(
+                              enabled: true,
+                              onChanged: (value) {},
+                              title: "LIVING ROOM",
+                              value: "TV",
+                            ),
+                          ),
+                          const Gap.horizontal(_itemsGap),
+                          Expanded(
+                            child: SwitchCard(
+                              enabled: false,
+                              onChanged: (value) {},
+                              title: "LIVING ROOM",
+                              value: "STEREO",
+                            ),
+                          ),
+                          const Gap.horizontal(_itemsGap),
+                          Expanded(
+                            child: SwitchCard(
+                              enabled: false,
+                              onChanged: (value) {},
+                              title: "LIVING ROOM",
+                              value: "THERMOSTAT",
+                            ),
+                          ),
+                          const Gap.horizontal(_itemsGap),
+                          Expanded(
+                            child: SwitchCard(
+                              enabled: false,
+                              onChanged: (value) {},
+                              title: "LIVING ROOM",
+                              value: "FAN",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Gap.horizontal(_itemsGap),
-                Expanded(
-                  flex: 18,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 49,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 6,
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                    borderRadius: 20,
-                              ),
-                            ),
-                            Gap.horizontal(_itemsGap),
-                            Expanded(
-                              flex: 4,
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                    borderRadius: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Gap.vertical(_itemsGap),
-                      Expanded(
-                        flex: 20,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                            Gap.horizontal(_itemsGap),
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                            Gap.horizontal(_itemsGap),
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Gap.vertical(_itemsGap),
-                      Expanded(
-                        flex: 31,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                            Gap.horizontal(_itemsGap),
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                            Gap.horizontal(_itemsGap),
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                            Gap.horizontal(_itemsGap),
-                            Expanded(
-                              child: HomeContainer(
-                                colorMode: ColorMode.solid,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
-        }),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
