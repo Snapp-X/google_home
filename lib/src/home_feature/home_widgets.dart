@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 enum ColorMode { gradient, solid }
 
@@ -147,20 +147,23 @@ class PowerCard extends StatelessWidget {
     final theme = Theme.of(context);
     return HomeContainer(
       borderRadius: 20,
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            'POWER CONSUMPTION KWH',
-            style: theme.textTheme.labelSmall?.copyWith(
-              height: 1.2,
-              fontSize: 8,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'POWER CONSUMPTION KWH',
+              style: theme.textTheme.labelSmall?.copyWith(
+                height: 1.2,
+                fontSize: 8,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
-        ),
+          const Expanded(child: PowerChart()),
+        ],
       ),
     );
   }
@@ -275,6 +278,149 @@ class AirRelatedCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class PowerChart extends StatefulWidget {
+  const PowerChart({super.key});
+
+  @override
+  State<StatefulWidget> createState() => PowerChartState();
+}
+
+class PowerChartState extends State<PowerChart> {
+  final double width = 10;
+
+  late List<BarChartGroupData> rawBarGroups;
+  late List<BarChartGroupData> showingBarGroups;
+
+  int touchedGroupIndex = -1;
+
+  final selectedColor = const Color(0xff5771C1);
+  final defaultColor = const Color(0xff2F2F3E);
+
+  @override
+  void initState() {
+    super.initState();
+    final barGroup1 = makeGroupData(0, 150);
+    final barGroup2 = makeGroupData(1, 140);
+    final barGroup3 = makeGroupData(2, 160);
+    final barGroup4 = makeGroupData(3, 200);
+    final barGroup5 = makeGroupData(4, 90);
+    final barGroup6 = makeGroupData(5, 100);
+    final barGroup7 = makeGroupData(6, 100);
+
+    final items = [
+      barGroup1,
+      barGroup2,
+      barGroup3,
+      barGroup4,
+      barGroup5,
+      barGroup6,
+      barGroup7,
+    ];
+
+    rawBarGroups = items;
+
+    showingBarGroups = rawBarGroups;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BarChart(
+      BarChartData(
+        maxY: 250,
+        barTouchData: BarTouchData(
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.red,
+            getTooltipItem: (a, b, c, d) => null,
+          ),
+        ),
+        titlesData: FlTitlesData(
+          show: true,
+          rightTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          topTitles: const AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
+          ),
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: bottomTitles,
+              reservedSize: 42,
+            ),
+          ),
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 28,
+              interval: 1,
+              getTitlesWidget: leftTitles,
+            ),
+          ),
+        ),
+        borderData: FlBorderData(
+          show: false,
+        ),
+        barGroups: showingBarGroups,
+        gridData: const FlGridData(show: false),
+      ),
+    );
+  }
+
+  Widget leftTitles(double value, TitleMeta meta) {
+    const style = TextStyle(
+      color: Color(0x7fFFFFFF),
+      fontWeight: FontWeight.w400,
+      fontSize: 7,
+    );
+    String text;
+
+    if (value % 50 == 0) {
+      text = value.toInt().toString();
+    } else {
+      return const SizedBox.shrink();
+    }
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 0,
+      child: Text(text, style: style),
+    );
+  }
+
+  Widget bottomTitles(double value, TitleMeta meta) {
+    final titles = <String>['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+
+    final Widget text = Text(
+      titles[value.toInt()],
+      style: const TextStyle(
+        color: Color(0x7fFFFFFF),
+        fontWeight: FontWeight.w400,
+        fontSize: 7,
+      ),
+    );
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 8, //margin top
+      child: text,
+    );
+  }
+
+  BarChartGroupData makeGroupData(int x, double y1) {
+    final selected = DateTime.now().weekday == (x + 1);
+    return BarChartGroupData(
+      barsSpace: 4,
+      x: x,
+      barRods: [
+        BarChartRodData(
+          toY: y1,
+          color: selected ? selectedColor : defaultColor,
+          width: width,
+        ),
+      ],
     );
   }
 }
