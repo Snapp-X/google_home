@@ -84,10 +84,26 @@ class WetherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeContainer(
+    final theme = Theme.of(context);
+    return HomeContainer(
       height: double.infinity,
       colorMode: ColorMode.gradient,
       borderRadius: 20,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'WEATHER',
+            style: theme.textTheme.labelSmall?.copyWith(
+              height: 1.2,
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -99,8 +115,24 @@ class LightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeContainer(
+    final theme = Theme.of(context);
+    return HomeContainer(
       borderRadius: 20,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Text(
+            'LIGHT',
+            style: theme.textTheme.labelSmall?.copyWith(
+              height: 1.2,
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -112,8 +144,24 @@ class PowerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeContainer(
+    final theme = Theme.of(context);
+    return HomeContainer(
       borderRadius: 20,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'POWER CONSUMPTION KWH',
+            style: theme.textTheme.labelSmall?.copyWith(
+              height: 1.2,
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
