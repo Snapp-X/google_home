@@ -15,12 +15,21 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   fl_chart: ^0.64.0
+  dio: ^5.3.3
+  flutter_riverpod: ^2.4.3
+  riverpod_annotation: ^2.2.0
+  freezed_annotation: ^2.4.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  riverpod_generator: ^3.0.0-dev.3
+  build_runner: ^2.4.6
+  custom_lint: ^0.5.3
+  riverpod_lint: ^2.3.0
+  freezed: ^2.4.5
 
 flutter:
   uses-material-design: true
