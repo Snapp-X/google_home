@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_state.freezed.dart';
@@ -14,6 +15,7 @@ class HomeState with _$HomeState {
 class HomeValues with _$HomeValues {
   const factory HomeValues({
     WeatherState? todayWeather,
+    @Default(LightBulbState()) LightBulbState lightBulbState,
     @Default('') String formattedTime,
     @Default('') String formattedDate,
     @Default('') String airQuality,
@@ -40,4 +42,13 @@ class WeatherState with _$WeatherState {
     @Default(WeatherType.sunny) WeatherType weatherType,
     @Default('London') String city,
   }) = _WeatherState;
+}
+
+@freezed
+class LightBulbState with _$LightBulbState {
+  const factory LightBulbState({
+    @Default(false) bool isOn,
+    Color? color,
+    @Default(70.0) double intensity,
+  }) = _LightBulbState;
 }

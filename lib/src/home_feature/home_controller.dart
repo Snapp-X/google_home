@@ -14,7 +14,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   void _init() {
     state = state.copyWith(
       todayWeather: const WeatherState(
-        temperature: '18°',
+        temperature: '18.2°',
         weatherType: WeatherType.rainy,
         city: 'London',
       ),

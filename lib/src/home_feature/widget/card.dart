@@ -1,18 +1,30 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_home/src/home_feature/home_controller.dart';
+import 'package:google_home/src/home_feature/home_view.dart';
+import 'package:google_home/src/home_feature/widget/color_picker.dart';
 import 'package:google_home/src/home_feature/widget/common.dart';
+import 'package:google_home/src/home_feature/widget/slider.dart';
 
-
-class WetherCard extends StatelessWidget {
+class WetherCard extends ConsumerWidget {
   const WetherCard({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+
+    final weatherState =
+        ref.watch(homeValuesProvider.select((value) => value.todayWeather));
+
+    final time =
+        ref.watch(homeValuesProvider.select((value) => value.formattedTime));
+
+    final date =
+        ref.watch(homeValuesProvider.select((value) => value.formattedDate));
+
     return HomeContainer(
       height: double.infinity,
       colorMode: ColorMode.gradient,
@@ -42,7 +54,7 @@ class WetherCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '18.2°',
+                  weatherState?.temperature ?? '',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
@@ -52,7 +64,7 @@ class WetherCard extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  'Moderate rain\nLondon',
+                  '${weatherState?.weatherType.name ?? ''}\n${weatherState?.city ?? ''}',
                   style: theme.textTheme.labelSmall?.copyWith(
                     fontSize: 8,
                     fontWeight: FontWeight.w500,
@@ -65,7 +77,7 @@ class WetherCard extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            '01:20 AM',
+            time,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontSize: 26,
               fontWeight: FontWeight.bold,
@@ -73,7 +85,7 @@ class WetherCard extends StatelessWidget {
             ),
           ),
           Text(
-            'Thu, Oct 9 2023',
+            date,
             style: theme.textTheme.headlineSmall?.copyWith(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -86,13 +98,16 @@ class WetherCard extends StatelessWidget {
   }
 }
 
-class LightCard extends StatelessWidget {
+class LightCard extends ConsumerWidget {
   const LightCard({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lightState =
+        ref.watch(homeValuesProvider.select((value) => value.lightBulbState));
+
     final theme = Theme.of(context);
     return HomeContainer(
       borderRadius: 20,
@@ -133,7 +148,7 @@ class LightCard extends StatelessWidget {
                       Transform.scale(
                         scale: .6,
                         child: Switch(
-                          value: true,
+                          value: lightState.isOn,
                           onChanged: (value) {},
                           activeColor: const Color(0xFF381E72),
                           activeTrackColor: const Color(0xFF5771C1),
@@ -162,7 +177,9 @@ class LightCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: Slider(
-                        value: .5,
+                        value: lightState.intensity,
+                        min: 0,
+                        max: 100,
                         onChanged: (newValue) {},
                       ),
                     ),
@@ -172,252 +189,6 @@ class LightCard extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class RoundedDeepSliderTrackShape extends SliderTrackShape {
-  const RoundedDeepSliderTrackShape();
-
-  @override
-  void paint(
-    PaintingContext context,
-    Offset offset, {
-    required RenderBox parentBox,
-    required SliderThemeData sliderTheme,
-    required Animation<double> enableAnimation,
-    required TextDirection textDirection,
-    required Offset thumbCenter,
-    Offset? secondaryOffset,
-    bool isDiscrete = false,
-    bool isEnabled = false,
-    double additionalActiveTrackHeight = 2,
-  }) {
-    assert(sliderTheme.disabledActiveTrackColor != null);
-    assert(sliderTheme.disabledInactiveTrackColor != null);
-    assert(sliderTheme.activeTrackColor != null);
-    assert(sliderTheme.inactiveTrackColor != null);
-    assert(sliderTheme.thumbShape != null);
-    // If the slider [SliderThemeData.trackHeight] is less than or equal to 0,
-    // then it makes no difference whether the track is painted or not,
-    // therefore the painting can be a no-op.
-    if (sliderTheme.trackHeight == null || sliderTheme.trackHeight! <= 0) {
-      return;
-    }
-
-    final thumbSize = sliderTheme.thumbShape!.getPreferredSize(true, false);
-
-    // Assign the track segment paints, which are leading: active and
-    // trailing: inactive.
-    final ColorTween activeTrackColorTween = ColorTween(
-        begin: sliderTheme.disabledActiveTrackColor,
-        end: sliderTheme.activeTrackColor);
-    final ColorTween inactiveTrackColorTween = ColorTween(
-        begin: sliderTheme.disabledInactiveTrackColor,
-        end: sliderTheme.inactiveTrackColor);
-    final Paint activePaint = Paint()
-      ..color = activeTrackColorTween.evaluate(enableAnimation)!;
-    final Paint inactivePaint = Paint()
-      ..color = inactiveTrackColorTween.evaluate(enableAnimation)!;
-    final Paint leftTrackPaint;
-    final Paint rightTrackPaint;
-    switch (textDirection) {
-      case TextDirection.ltr:
-        leftTrackPaint = activePaint;
-        rightTrackPaint = inactivePaint;
-      case TextDirection.rtl:
-        leftTrackPaint = inactivePaint;
-        rightTrackPaint = activePaint;
-    }
-
-    final Rect trackRect = getPreferredRect(
-      parentBox: parentBox,
-      offset: offset,
-      sliderTheme: sliderTheme,
-      isEnabled: isEnabled,
-      isDiscrete: isDiscrete,
-    );
-    final Radius trackRadius = Radius.circular(trackRect.height / 2);
-    final Radius activeTrackRadius =
-        Radius.circular((trackRect.height + additionalActiveTrackHeight) / 2);
-
-    context.canvas.drawRRect(
-      RRect.fromLTRBAndCorners(
-        trackRect.left - (additionalActiveTrackHeight / 2),
-        trackRect.top - (additionalActiveTrackHeight / 2),
-        trackRect.right + (additionalActiveTrackHeight / 2),
-        trackRect.bottom + (additionalActiveTrackHeight / 2),
-        topRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-        topLeft: (textDirection == TextDirection.rtl)
-            ? trackRadius
-            : activeTrackRadius,
-        bottomLeft: (textDirection == TextDirection.rtl)
-            ? trackRadius
-            : activeTrackRadius,
-      ),
-      rightTrackPaint,
-    );
-
-    context.canvas.drawRRect(
-      RRect.fromLTRBAndCorners(
-        trackRect.left,
-        trackRect.top,
-        thumbCenter.dx +
-            (thumbSize.longestSide / 2) +
-            additionalActiveTrackHeight,
-        trackRect.bottom,
-        topLeft: (textDirection == TextDirection.ltr)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomLeft: (textDirection == TextDirection.ltr)
-            ? activeTrackRadius
-            : trackRadius,
-        topRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-      ),
-      leftTrackPaint,
-    );
-
-    final bool showSecondaryTrack = (secondaryOffset != null) &&
-        ((textDirection == TextDirection.ltr)
-            ? (secondaryOffset.dx > thumbCenter.dx)
-            : (secondaryOffset.dx < thumbCenter.dx));
-
-    if (showSecondaryTrack) {
-      final ColorTween secondaryTrackColorTween = ColorTween(
-          begin: sliderTheme.disabledSecondaryActiveTrackColor,
-          end: sliderTheme.secondaryActiveTrackColor);
-      final Paint secondaryTrackPaint = Paint()
-        ..color = secondaryTrackColorTween.evaluate(enableAnimation)!;
-      if (textDirection == TextDirection.ltr) {
-        context.canvas.drawRRect(
-          RRect.fromLTRBAndCorners(
-            thumbCenter.dx,
-            trackRect.top,
-            secondaryOffset.dx,
-            trackRect.bottom,
-            topRight: trackRadius,
-            bottomRight: trackRadius,
-          ),
-          secondaryTrackPaint,
-        );
-      } else {
-        context.canvas.drawRRect(
-          RRect.fromLTRBAndCorners(
-            secondaryOffset.dx,
-            trackRect.top,
-            thumbCenter.dx,
-            trackRect.bottom,
-            topLeft: trackRadius,
-            bottomLeft: trackRadius,
-          ),
-          secondaryTrackPaint,
-        );
-      }
-    }
-  }
-
-  @override
-  Rect getPreferredRect({
-    required RenderBox parentBox,
-    Offset offset = Offset.zero,
-    required SliderThemeData sliderTheme,
-    bool isEnabled = false,
-    bool isDiscrete = false,
-  }) {
-    final double overlayWidth =
-        sliderTheme.overlayShape!.getPreferredSize(isEnabled, isDiscrete).width;
-    final double trackHeight = sliderTheme.trackHeight!;
-    assert(overlayWidth >= 0);
-    assert(trackHeight >= 0);
-
-    final double trackLeft = offset.dx;
-    final double trackTop =
-        offset.dy + (parentBox.size.height - trackHeight) / 2;
-    final double trackRight = parentBox.size.width;
-    final double trackBottom = trackTop + trackHeight;
-    // If the parentBox'size less than slider's size the trackRight will be less than trackLeft, so switch them.
-    return Rect.fromLTRB(math.min(trackLeft, trackRight), trackTop,
-        math.max(trackLeft, trackRight), trackBottom);
-  }
-}
-
-class ColorPicker extends StatelessWidget {
-  const ColorPicker({
-    super.key,
-    this.selectedColor,
-    this.onChange,
-  });
-
-  final Color? selectedColor;
-  final ValueChanged<Color>? onChange;
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      children: [
-        Expanded(
-          child: ColorPickerItem(
-            color: Color(0xff709CEE),
-          ),
-        ),
-        Expanded(
-          child: ColorPickerItem(
-            color: Color(0xff716EEC),
-          ),
-        ),
-        Expanded(
-          child: ColorPickerItem(
-            color: Color(0xffEA4F47),
-            isSelected: true,
-          ),
-        ),
-        Expanded(
-          child: ColorPickerItem(
-            color: Color(0xffE57656),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class ColorPickerItem extends StatelessWidget {
-  const ColorPickerItem({
-    super.key,
-    required this.color,
-    this.isSelected = false,
-  });
-
-  final Color color;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Container(
-        margin: isSelected ? EdgeInsets.zero : const EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10),
-          border: isSelected
-              ? Border.all(
-                  color: Colors.black45,
-                  width: 4,
-                )
-              : null,
-        ),
       ),
     );
   }
@@ -451,6 +222,62 @@ class PowerCard extends StatelessWidget {
           const Expanded(child: PowerChart()),
         ],
       ),
+    );
+  }
+}
+
+class SwitchesRow extends ConsumerWidget {
+  const SwitchesRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tv = ref.watch(homeValuesProvider.select((value) => value.tv));
+    final stereo =
+        ref.watch(homeValuesProvider.select((value) => value.stereo));
+    final thermostat =
+        ref.watch(homeValuesProvider.select((value) => value.thermostat));
+    final fan = ref.watch(homeValuesProvider.select((value) => value.fan));
+
+    return Row(
+      children: [
+        Expanded(
+          child: SwitchCard(
+            enabled: tv,
+            onChanged: (value) {},
+            title: "LIVING ROOM",
+            value: "TV",
+          ),
+        ),
+        const Gap.horizontal(homeItemsGap),
+        Expanded(
+          child: SwitchCard(
+            enabled: stereo,
+            onChanged: (value) {},
+            title: "LIVING ROOM",
+            value: "STEREO",
+          ),
+        ),
+        const Gap.horizontal(homeItemsGap),
+        Expanded(
+          child: SwitchCard(
+            enabled: thermostat,
+            onChanged: (value) {},
+            title: "LIVING ROOM",
+            value: "THERMOSTAT",
+          ),
+        ),
+        const Gap.horizontal(homeItemsGap),
+        Expanded(
+          child: SwitchCard(
+            enabled: fan,
+            onChanged: (value) {},
+            title: "LIVING ROOM",
+            value: "FAN",
+          ),
+        ),
+      ],
     );
   }
 }
@@ -520,6 +347,47 @@ class SwitchCard extends StatelessWidget {
           const Gap.vertical(16),
         ],
       ),
+    );
+  }
+}
+
+class AirRelatedRow extends ConsumerWidget {
+  const AirRelatedRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final airQuality =
+        ref.watch(homeValuesProvider.select((value) => value.airQuality));
+    final temperature =
+        ref.watch(homeValuesProvider.select((value) => value.temperature));
+    final humidity =
+        ref.watch(homeValuesProvider.select((value) => value.humidity));
+
+    return Row(
+      children: [
+        Expanded(
+          child: AirRelatedCard(
+            title: "AIR QUALITY",
+            value: airQuality.toUpperCase(),
+          ),
+        ),
+        const Gap.horizontal(homeItemsGap),
+        Expanded(
+          child: AirRelatedCard(
+            title: "TEMPERATURE",
+            value: temperature.toUpperCase(),
+          ),
+        ),
+        const Gap.horizontal(homeItemsGap),
+        Expanded(
+          child: AirRelatedCard(
+            title: "HUMIDITY",
+            value: humidity.toUpperCase(),
+          ),
+        ),
+      ],
     );
   }
 }

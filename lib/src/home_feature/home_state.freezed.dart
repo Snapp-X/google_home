@@ -576,6 +576,7 @@ abstract class _HomeStateError implements HomeState {
 /// @nodoc
 mixin _$HomeValues {
   WeatherState? get todayWeather => throw _privateConstructorUsedError;
+  LightBulbState get lightBulbState => throw _privateConstructorUsedError;
   String get formattedTime => throw _privateConstructorUsedError;
   String get formattedDate => throw _privateConstructorUsedError;
   String get airQuality => throw _privateConstructorUsedError;
@@ -599,6 +600,7 @@ abstract class $HomeValuesCopyWith<$Res> {
   @useResult
   $Res call(
       {WeatherState? todayWeather,
+      LightBulbState lightBulbState,
       String formattedTime,
       String formattedDate,
       String airQuality,
@@ -610,6 +612,7 @@ abstract class $HomeValuesCopyWith<$Res> {
       bool fan});
 
   $WeatherStateCopyWith<$Res>? get todayWeather;
+  $LightBulbStateCopyWith<$Res> get lightBulbState;
 }
 
 /// @nodoc
@@ -626,6 +629,7 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
   @override
   $Res call({
     Object? todayWeather = freezed,
+    Object? lightBulbState = null,
     Object? formattedTime = null,
     Object? formattedDate = null,
     Object? airQuality = null,
@@ -641,6 +645,10 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
           ? _value.todayWeather
           : todayWeather // ignore: cast_nullable_to_non_nullable
               as WeatherState?,
+      lightBulbState: null == lightBulbState
+          ? _value.lightBulbState
+          : lightBulbState // ignore: cast_nullable_to_non_nullable
+              as LightBulbState,
       formattedTime: null == formattedTime
           ? _value.formattedTime
           : formattedTime // ignore: cast_nullable_to_non_nullable
@@ -691,6 +699,14 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
       return _then(_value.copyWith(todayWeather: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LightBulbStateCopyWith<$Res> get lightBulbState {
+    return $LightBulbStateCopyWith<$Res>(_value.lightBulbState, (value) {
+      return _then(_value.copyWith(lightBulbState: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -703,6 +719,7 @@ abstract class _$$HomeValuesImplCopyWith<$Res>
   @useResult
   $Res call(
       {WeatherState? todayWeather,
+      LightBulbState lightBulbState,
       String formattedTime,
       String formattedDate,
       String airQuality,
@@ -715,6 +732,8 @@ abstract class _$$HomeValuesImplCopyWith<$Res>
 
   @override
   $WeatherStateCopyWith<$Res>? get todayWeather;
+  @override
+  $LightBulbStateCopyWith<$Res> get lightBulbState;
 }
 
 /// @nodoc
@@ -729,6 +748,7 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todayWeather = freezed,
+    Object? lightBulbState = null,
     Object? formattedTime = null,
     Object? formattedDate = null,
     Object? airQuality = null,
@@ -744,6 +764,10 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
           ? _value.todayWeather
           : todayWeather // ignore: cast_nullable_to_non_nullable
               as WeatherState?,
+      lightBulbState: null == lightBulbState
+          ? _value.lightBulbState
+          : lightBulbState // ignore: cast_nullable_to_non_nullable
+              as LightBulbState,
       formattedTime: null == formattedTime
           ? _value.formattedTime
           : formattedTime // ignore: cast_nullable_to_non_nullable
@@ -789,6 +813,7 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
 class _$HomeValuesImpl implements _HomeValues {
   const _$HomeValuesImpl(
       {this.todayWeather,
+      this.lightBulbState = const LightBulbState(),
       this.formattedTime = '',
       this.formattedDate = '',
       this.airQuality = '',
@@ -801,6 +826,9 @@ class _$HomeValuesImpl implements _HomeValues {
 
   @override
   final WeatherState? todayWeather;
+  @override
+  @JsonKey()
+  final LightBulbState lightBulbState;
   @override
   @JsonKey()
   final String formattedTime;
@@ -831,7 +859,7 @@ class _$HomeValuesImpl implements _HomeValues {
 
   @override
   String toString() {
-    return 'HomeValues(todayWeather: $todayWeather, formattedTime: $formattedTime, formattedDate: $formattedDate, airQuality: $airQuality, temperature: $temperature, humidity: $humidity, tv: $tv, stereo: $stereo, thermostat: $thermostat, fan: $fan)';
+    return 'HomeValues(todayWeather: $todayWeather, lightBulbState: $lightBulbState, formattedTime: $formattedTime, formattedDate: $formattedDate, airQuality: $airQuality, temperature: $temperature, humidity: $humidity, tv: $tv, stereo: $stereo, thermostat: $thermostat, fan: $fan)';
   }
 
   @override
@@ -841,6 +869,8 @@ class _$HomeValuesImpl implements _HomeValues {
             other is _$HomeValuesImpl &&
             (identical(other.todayWeather, todayWeather) ||
                 other.todayWeather == todayWeather) &&
+            (identical(other.lightBulbState, lightBulbState) ||
+                other.lightBulbState == lightBulbState) &&
             (identical(other.formattedTime, formattedTime) ||
                 other.formattedTime == formattedTime) &&
             (identical(other.formattedDate, formattedDate) ||
@@ -862,6 +892,7 @@ class _$HomeValuesImpl implements _HomeValues {
   int get hashCode => Object.hash(
       runtimeType,
       todayWeather,
+      lightBulbState,
       formattedTime,
       formattedDate,
       airQuality,
@@ -882,6 +913,7 @@ class _$HomeValuesImpl implements _HomeValues {
 abstract class _HomeValues implements HomeValues {
   const factory _HomeValues(
       {final WeatherState? todayWeather,
+      final LightBulbState lightBulbState,
       final String formattedTime,
       final String formattedDate,
       final String airQuality,
@@ -894,6 +926,8 @@ abstract class _HomeValues implements HomeValues {
 
   @override
   WeatherState? get todayWeather;
+  @override
+  LightBulbState get lightBulbState;
   @override
   String get formattedTime;
   @override
@@ -1075,5 +1109,162 @@ abstract class _WeatherState implements WeatherState {
   @override
   @JsonKey(ignore: true)
   _$$WeatherStateImplCopyWith<_$WeatherStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$LightBulbState {
+  bool get isOn => throw _privateConstructorUsedError;
+  Color? get color => throw _privateConstructorUsedError;
+  double get intensity => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LightBulbStateCopyWith<LightBulbState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LightBulbStateCopyWith<$Res> {
+  factory $LightBulbStateCopyWith(
+          LightBulbState value, $Res Function(LightBulbState) then) =
+      _$LightBulbStateCopyWithImpl<$Res, LightBulbState>;
+  @useResult
+  $Res call({bool isOn, Color? color, double intensity});
+}
+
+/// @nodoc
+class _$LightBulbStateCopyWithImpl<$Res, $Val extends LightBulbState>
+    implements $LightBulbStateCopyWith<$Res> {
+  _$LightBulbStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isOn = null,
+    Object? color = freezed,
+    Object? intensity = null,
+  }) {
+    return _then(_value.copyWith(
+      isOn: null == isOn
+          ? _value.isOn
+          : isOn // ignore: cast_nullable_to_non_nullable
+              as bool,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as Color?,
+      intensity: null == intensity
+          ? _value.intensity
+          : intensity // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LightBulbStateImplCopyWith<$Res>
+    implements $LightBulbStateCopyWith<$Res> {
+  factory _$$LightBulbStateImplCopyWith(_$LightBulbStateImpl value,
+          $Res Function(_$LightBulbStateImpl) then) =
+      __$$LightBulbStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool isOn, Color? color, double intensity});
+}
+
+/// @nodoc
+class __$$LightBulbStateImplCopyWithImpl<$Res>
+    extends _$LightBulbStateCopyWithImpl<$Res, _$LightBulbStateImpl>
+    implements _$$LightBulbStateImplCopyWith<$Res> {
+  __$$LightBulbStateImplCopyWithImpl(
+      _$LightBulbStateImpl _value, $Res Function(_$LightBulbStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isOn = null,
+    Object? color = freezed,
+    Object? intensity = null,
+  }) {
+    return _then(_$LightBulbStateImpl(
+      isOn: null == isOn
+          ? _value.isOn
+          : isOn // ignore: cast_nullable_to_non_nullable
+              as bool,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as Color?,
+      intensity: null == intensity
+          ? _value.intensity
+          : intensity // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LightBulbStateImpl implements _LightBulbState {
+  const _$LightBulbStateImpl(
+      {this.isOn = false, this.color, this.intensity = 70.0});
+
+  @override
+  @JsonKey()
+  final bool isOn;
+  @override
+  final Color? color;
+  @override
+  @JsonKey()
+  final double intensity;
+
+  @override
+  String toString() {
+    return 'LightBulbState(isOn: $isOn, color: $color, intensity: $intensity)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LightBulbStateImpl &&
+            (identical(other.isOn, isOn) || other.isOn == isOn) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.intensity, intensity) ||
+                other.intensity == intensity));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isOn, color, intensity);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LightBulbStateImplCopyWith<_$LightBulbStateImpl> get copyWith =>
+      __$$LightBulbStateImplCopyWithImpl<_$LightBulbStateImpl>(
+          this, _$identity);
+}
+
+abstract class _LightBulbState implements LightBulbState {
+  const factory _LightBulbState(
+      {final bool isOn,
+      final Color? color,
+      final double intensity}) = _$LightBulbStateImpl;
+
+  @override
+  bool get isOn;
+  @override
+  Color? get color;
+  @override
+  double get intensity;
+  @override
+  @JsonKey(ignore: true)
+  _$$LightBulbStateImplCopyWith<_$LightBulbStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
