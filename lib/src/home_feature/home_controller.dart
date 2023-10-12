@@ -1,15 +1,21 @@
+import 'package:google_home/src/home_feature/home_repository.dart';
 import 'package:google_home/src/home_feature/home_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final homeValuesProvider =
     StateNotifierProvider<HomeValuesNotifier, HomeValues>((ref) {
-  return HomeValuesNotifier();
+  final homeRepository = ref.watch(homeRepositoryProvider);
+
+  return HomeValuesNotifier(homeRepository: homeRepository);
 });
 
 class HomeValuesNotifier extends StateNotifier<HomeValues> {
-  HomeValuesNotifier() : super(const HomeValues()) {
+  HomeValuesNotifier({required this.homeRepository})
+      : super(const HomeValues()) {
     _init();
   }
+
+  final HomeRepository homeRepository;
 
   void _init() {
     state = state.copyWith(
@@ -26,4 +32,6 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
       humidity: '43.3%',
     );
   }
+
+  void toggleTv() {}
 }
