@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_home/src/home_feature/home_widgets.dart';
+import 'package:google_home/src/home_feature/widget/card.dart';
+import 'package:google_home/src/home_feature/widget/common.dart';
 
 const _itemsGap = 11.0;
 const _viewPadding = EdgeInsets.symmetric(horizontal: 32, vertical: 24);
