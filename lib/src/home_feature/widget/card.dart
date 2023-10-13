@@ -5,7 +5,6 @@ import 'package:google_home/src/home_feature/home_controller.dart';
 import 'package:google_home/src/home_feature/home_view.dart';
 import 'package:google_home/src/home_feature/widget/color_picker.dart';
 import 'package:google_home/src/home_feature/widget/common.dart';
-import 'package:google_home/src/home_feature/widget/slider.dart';
 
 class WetherCard extends ConsumerWidget {
   const WetherCard({
@@ -140,8 +139,8 @@ class LightCard extends ConsumerWidget {
                         'LIGHT',
                         style: theme.textTheme.labelSmall?.copyWith(
                           height: 1.2,
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
@@ -150,10 +149,6 @@ class LightCard extends ConsumerWidget {
                         child: Switch(
                           value: lightState.isOn,
                           onChanged: (value) {},
-                          activeColor: const Color(0xFF381E72),
-                          activeTrackColor: const Color(0xFF5771C1),
-                          inactiveThumbColor: const Color(0xFF18181E),
-                          inactiveTrackColor: const Color(0xFF2F2F3E),
                         ),
                       ),
                     ],
@@ -163,25 +158,13 @@ class LightCard extends ConsumerWidget {
                   /// Row with 4 equal square container
                   const ColorPicker(),
                   const Spacer(),
-                  SliderTheme(
-                    data: const SliderThemeData(
-                      trackHeight: 14,
-                      inactiveTrackColor: Color(0xff2F2F3E),
-                      activeTrackColor: Color(0xff5771C1),
-                      trackShape: RoundedDeepSliderTrackShape(),
-                      thumbColor: Color(0xff393760),
-                      thumbShape: RoundSliderThumbShape(
-                        enabledThumbRadius: 6,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: Slider(
-                        value: lightState.intensity,
-                        min: 0,
-                        max: 100,
-                        onChanged: (newValue) {},
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Slider(
+                      value: lightState.intensity,
+                      min: 0,
+                      max: 100,
+                      onChanged: (newValue) {},
                     ),
                   ),
                 ],
@@ -213,13 +196,18 @@ class PowerCard extends StatelessWidget {
               'POWER CONSUMPTION KWH',
               style: theme.textTheme.labelSmall?.copyWith(
                 height: 1.2,
-                fontSize: 8,
-                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),
-          const Expanded(child: PowerChart()),
+          Expanded(
+            child: PowerChart(
+              selectedColor: theme.colorScheme.secondary,
+              unselectedColor: theme.colorScheme.primaryContainer,
+            ),
+          ),
         ],
       ),
     );
@@ -312,10 +300,6 @@ class SwitchCard extends StatelessWidget {
               child: Switch(
                 value: enabled,
                 onChanged: onChanged,
-                activeColor: const Color(0xFF381E72),
-                activeTrackColor: const Color(0xFF5771C1),
-                inactiveThumbColor: const Color(0xFF18181E),
-                inactiveTrackColor: const Color(0xFF2F2F3E),
               ),
             ),
           ),
@@ -339,7 +323,7 @@ class SwitchCard extends StatelessWidget {
               style: theme.textTheme.labelSmall?.copyWith(
                 height: 1.2,
                 fontSize: 10,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
@@ -425,8 +409,8 @@ class AirRelatedCard extends StatelessWidget {
             value,
             style: theme.textTheme.labelSmall?.copyWith(
               height: 1.2,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
               color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
@@ -437,7 +421,14 @@ class AirRelatedCard extends StatelessWidget {
 }
 
 class PowerChart extends StatefulWidget {
-  const PowerChart({super.key});
+  const PowerChart({
+    super.key,
+    required this.selectedColor,
+    required this.unselectedColor,
+  });
+
+  final Color selectedColor;
+  final Color unselectedColor;
 
   @override
   State<StatefulWidget> createState() => PowerChartState();
@@ -450,9 +441,6 @@ class PowerChartState extends State<PowerChart> {
   late List<BarChartGroupData> showingBarGroups;
 
   int touchedGroupIndex = -1;
-
-  final selectedColor = const Color(0xff5771C1);
-  final defaultColor = const Color(0xff2F2F3E);
 
   @override
   void initState() {
@@ -525,11 +513,12 @@ class PowerChartState extends State<PowerChart> {
   }
 
   Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: Color(0x7fFFFFFF),
+    final style = TextStyle(
+      color: Theme.of(context).colorScheme.onPrimaryContainer,
       fontWeight: FontWeight.w400,
       fontSize: 7,
     );
+
     String text;
 
     if (value % 50 == 0) {
@@ -549,8 +538,8 @@ class PowerChartState extends State<PowerChart> {
 
     final Widget text = Text(
       titles[value.toInt()],
-      style: const TextStyle(
-        color: Color(0x7fFFFFFF),
+      style: TextStyle(
+        color: Theme.of(context).colorScheme.onPrimaryContainer,
         fontWeight: FontWeight.w400,
         fontSize: 7,
       ),
@@ -571,7 +560,7 @@ class PowerChartState extends State<PowerChart> {
       barRods: [
         BarChartRodData(
           toY: y1,
-          color: selected ? selectedColor : defaultColor,
+          color: selected ? widget.selectedColor : widget.unselectedColor,
           width: width,
         ),
       ],

@@ -13,9 +13,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFF18181E),
-      body: Padding(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const Padding(
         padding: _viewPadding,
         child: Center(
           child: Row(

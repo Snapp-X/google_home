@@ -45,7 +45,7 @@ class HomeContainer extends StatelessWidget {
               )
             : null,
         color: colorMode == ColorMode.solid
-            ? color ?? const Color(0xFF1e1e26)
+            ? color ?? Theme.of(context).colorScheme.surface
             : null,
       ),
       child: child,

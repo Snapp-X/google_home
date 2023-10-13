@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_home/src/core/styles/theme.dart';
 import 'package:google_home/src/home_feature/home_view.dart';
 
 import 'settings/settings_controller.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
           theme: ThemeData(useMaterial3: true),
-          darkTheme: ThemeData.dark(useMaterial3: true),
+          darkTheme: darkTheme,
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
