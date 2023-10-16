@@ -1115,7 +1115,7 @@ abstract class _WeatherState implements WeatherState {
 /// @nodoc
 mixin _$LightBulbState {
   bool get isOn => throw _privateConstructorUsedError;
-  Color? get color => throw _privateConstructorUsedError;
+  int get color => throw _privateConstructorUsedError;
   double get intensity => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1129,7 +1129,7 @@ abstract class $LightBulbStateCopyWith<$Res> {
           LightBulbState value, $Res Function(LightBulbState) then) =
       _$LightBulbStateCopyWithImpl<$Res, LightBulbState>;
   @useResult
-  $Res call({bool isOn, Color? color, double intensity});
+  $Res call({bool isOn, int color, double intensity});
 }
 
 /// @nodoc
@@ -1146,7 +1146,7 @@ class _$LightBulbStateCopyWithImpl<$Res, $Val extends LightBulbState>
   @override
   $Res call({
     Object? isOn = null,
-    Object? color = freezed,
+    Object? color = null,
     Object? intensity = null,
   }) {
     return _then(_value.copyWith(
@@ -1154,10 +1154,10 @@ class _$LightBulbStateCopyWithImpl<$Res, $Val extends LightBulbState>
           ? _value.isOn
           : isOn // ignore: cast_nullable_to_non_nullable
               as bool,
-      color: freezed == color
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as Color?,
+              as int,
       intensity: null == intensity
           ? _value.intensity
           : intensity // ignore: cast_nullable_to_non_nullable
@@ -1174,7 +1174,7 @@ abstract class _$$LightBulbStateImplCopyWith<$Res>
       __$$LightBulbStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isOn, Color? color, double intensity});
+  $Res call({bool isOn, int color, double intensity});
 }
 
 /// @nodoc
@@ -1189,7 +1189,7 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isOn = null,
-    Object? color = freezed,
+    Object? color = null,
     Object? intensity = null,
   }) {
     return _then(_$LightBulbStateImpl(
@@ -1197,10 +1197,10 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
           ? _value.isOn
           : isOn // ignore: cast_nullable_to_non_nullable
               as bool,
-      color: freezed == color
+      color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
-              as Color?,
+              as int,
       intensity: null == intensity
           ? _value.intensity
           : intensity // ignore: cast_nullable_to_non_nullable
@@ -1213,13 +1213,14 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
 
 class _$LightBulbStateImpl implements _LightBulbState {
   const _$LightBulbStateImpl(
-      {this.isOn = false, this.color, this.intensity = 70.0});
+      {this.isOn = false, this.color = 0, this.intensity = 70.0});
 
   @override
   @JsonKey()
   final bool isOn;
   @override
-  final Color? color;
+  @JsonKey()
+  final int color;
   @override
   @JsonKey()
   final double intensity;
@@ -1254,13 +1255,13 @@ class _$LightBulbStateImpl implements _LightBulbState {
 abstract class _LightBulbState implements LightBulbState {
   const factory _LightBulbState(
       {final bool isOn,
-      final Color? color,
+      final int color,
       final double intensity}) = _$LightBulbStateImpl;
 
   @override
   bool get isOn;
   @override
-  Color? get color;
+  int get color;
   @override
   double get intensity;
   @override

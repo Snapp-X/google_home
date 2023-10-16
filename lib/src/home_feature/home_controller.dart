@@ -34,4 +34,30 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   }
 
   void toggleTv() {}
+
+  void toggleLightBulb() {
+    state = state.copyWith(
+      lightBulbState: state.lightBulbState.copyWith(
+        isOn: !state.lightBulbState.isOn,
+      ),
+    );
+  }
+
+  void changeLightColour(int color) {
+    if (color > 5) {
+      return;
+    }
+
+    var effectiveColor = color;
+
+    if (color == state.lightBulbState.color) {
+      effectiveColor = 1;
+    }
+
+    state = state.copyWith(
+      lightBulbState: state.lightBulbState.copyWith(
+        color: effectiveColor,
+      ),
+    );
+  }
 }

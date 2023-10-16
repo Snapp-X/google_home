@@ -48,7 +48,7 @@ class WeatherState with _$WeatherState {
 class LightBulbState with _$LightBulbState {
   const factory LightBulbState({
     @Default(false) bool isOn,
-    Color? color,
+    @Default(0) int color,
     @Default(70.0) double intensity,
   }) = _LightBulbState;
 }

@@ -5,6 +5,7 @@ import 'package:google_home/src/home_feature/home_controller.dart';
 import 'package:google_home/src/home_feature/home_view.dart';
 import 'package:google_home/src/home_feature/widget/color_picker.dart';
 import 'package:google_home/src/home_feature/widget/common.dart';
+import 'package:google_home/src/home_feature/widget/lamp.dart';
 
 class WetherCard extends ConsumerWidget {
   const WetherCard({
@@ -112,18 +113,9 @@ class LightCard extends ConsumerWidget {
       borderRadius: 20,
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             flex: 2,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Image.asset('assets/images/lamp.png'),
-                ),
-                // TODO(payam): add animation for light
-              ],
-            ),
+            child: Lamp(),
           ),
           Expanded(
             flex: 3,
@@ -148,7 +140,11 @@ class LightCard extends ConsumerWidget {
                         scale: .6,
                         child: Switch(
                           value: lightState.isOn,
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            ref
+                                .read(homeValuesProvider.notifier)
+                                .toggleLightBulb();
+                          },
                         ),
                       ),
                     ],

@@ -19,6 +19,7 @@ dependencies:
   flutter_riverpod: ^2.4.3
   riverpod_annotation: ^2.2.0
   freezed_annotation: ^2.4.1
+  rive: ^0.11.17
 
 dev_dependencies:
   flutter_test:
@@ -40,3 +41,4 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/rive/
