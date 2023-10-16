@@ -33,7 +33,16 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
     );
   }
 
-  void toggleTv() {}
+  void toggleTv() {
+    // TODO(moritz): toggle the tv switch and change the tv state 
+    //something like below example
+
+    // homeRepository.httpService.get('endpoint');
+
+    // state = state.copyWith(
+    //   tv: !state.tv,
+    // );
+  }
 
   void toggleLightBulb() {
     state = state.copyWith(
