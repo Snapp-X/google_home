@@ -90,7 +90,10 @@ class LightCard extends ConsumerWidget {
         children: [
           const Expanded(
             flex: 2,
-            child: Lamp(),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 32),
+              child: Lamp(),
+            ),
           ),
           Expanded(
             flex: 3,
@@ -138,6 +141,7 @@ class LightCard extends ConsumerWidget {
                       ),
                     ),
                   ),
+                  const Spacer(),
                 ],
               ),
             ),

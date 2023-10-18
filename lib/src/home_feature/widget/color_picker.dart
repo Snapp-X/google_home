@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_home/src/core/styles/responsive.dart';
 import 'package:google_home/src/home_feature/home_controller.dart';
 
 class ColorPicker extends ConsumerWidget {
@@ -76,14 +77,16 @@ class ColorPickerItem extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1,
         child: Container(
-          margin: isSelected ? EdgeInsets.zero : const EdgeInsets.all(4),
+          margin: isSelected
+              ? EdgeInsets.zero
+              : EdgeInsets.all(context.colorPickerItemBorder),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(10),
             border: isSelected
                 ? Border.all(
                     color: Colors.black45,
-                    width: 4,
+                    width: context.colorPickerItemBorder,
                   )
                 : null,
           ),

@@ -39,27 +39,26 @@ class _LampState extends ConsumerState<Lamp> {
       },
     );
 
-    return Align(
-      alignment: Alignment.topCenter,
-      child: lampFile.maybeWhen(
-        data: (data) {
-          return RiveAnimation.direct(
-            data,
-            onInit: (art) {
-              final controller =
-                  StateMachineController.fromArtboard(art, 'Colour Switch')
-                      as StateMachineController;
+    return lampFile.maybeWhen(
+      data: (data) {
+        return RiveAnimation.direct(
+          data,
+          onInit: (art) {
+            final controller =
+                StateMachineController.fromArtboard(art, 'Colour Switch')
+                    as StateMachineController;
 
-              controller.isActive = true;
+            controller.isActive = true;
 
-              art.addController(controller);
+            art.addController(controller);
 
-              colourInput = controller.findSMI('Colour') as SMINumber;
-            },
-          );
-        },
-        orElse: () => const SizedBox.shrink(),
-      ),
+            colourInput = controller.findSMI('Colour') as SMINumber;
+          },
+          alignment: Alignment.topCenter,
+          fit: BoxFit.cover,
+        );
+      },
+      orElse: () => const SizedBox.shrink(),
     );
   }
 }

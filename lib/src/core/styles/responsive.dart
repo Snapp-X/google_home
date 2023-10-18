@@ -67,4 +67,7 @@ extension ResponsiveContext on BuildContext {
 
   double get chartBarWidth =>
       screenBreakpoint == ScreenBreakpoints.small ? 10 : 18;
+
+  double get colorPickerItemBorder =>
+      screenBreakpoint == ScreenBreakpoints.small ? 4 : 6;
 }
