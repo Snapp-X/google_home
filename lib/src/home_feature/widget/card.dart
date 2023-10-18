@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_home/src/core/styles/responsive.dart';
 import 'package:google_home/src/home_feature/home_controller.dart';
-import 'package:google_home/src/home_feature/home_view.dart';
 import 'package:google_home/src/home_feature/widget/color_picker.dart';
 import 'package:google_home/src/home_feature/widget/common.dart';
 import 'package:google_home/src/home_feature/widget/lamp.dart';
@@ -14,8 +14,6 @@ class WetherCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
     final weatherState =
         ref.watch(homeValuesProvider.select((value) => value.todayWeather));
 
@@ -36,12 +34,7 @@ class WetherCard extends ConsumerWidget {
           const Gap.vertical(2),
           Text(
             'WEATHER',
-            style: theme.textTheme.labelSmall?.copyWith(
-              height: 1.2,
-              fontSize: 8,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            style: context.titleTextStyle,
           ),
           const Gap.vertical(8),
           const HomeContainer(
@@ -55,22 +48,13 @@ class WetherCard extends ConsumerWidget {
               Expanded(
                 child: Text(
                   weatherState?.temperature ?? '',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                  style: context.headerTextStyle,
                 ),
               ),
               Expanded(
                 child: Text(
                   '${weatherState?.weatherType.name ?? ''}\n${weatherState?.city ?? ''}',
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    fontSize: 8,
-                    fontWeight: FontWeight.w500,
-                    color:
-                        Theme.of(context).colorScheme.onSurface.withOpacity(.5),
-                  ),
+                  style: context.subtitleTextStyle,
                 ),
               ),
             ],
@@ -78,19 +62,11 @@ class WetherCard extends ConsumerWidget {
           const Spacer(),
           Text(
             time,
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            style: context.headerTextStyle,
           ),
           Text(
             date,
-            style: theme.textTheme.headlineSmall?.copyWith(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
-            ),
+            style: context.subHeaderTextStyle,
           ),
         ],
       ),
@@ -108,7 +84,6 @@ class LightCard extends ConsumerWidget {
     final lightState =
         ref.watch(homeValuesProvider.select((value) => value.lightBulbState));
 
-    final theme = Theme.of(context);
     return HomeContainer(
       borderRadius: 20,
       child: Row(
@@ -129,15 +104,10 @@ class LightCard extends ConsumerWidget {
                     children: [
                       Text(
                         'LIGHT',
-                        style: theme.textTheme.labelSmall?.copyWith(
-                          height: 1.2,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
+                        style: context.titleTextStyle,
                       ),
                       Transform.scale(
-                        scale: .6,
+                        scale: context.switchScale,
                         child: Switch(
                           value: lightState.isOn,
                           onChanged: (value) {
@@ -156,11 +126,16 @@ class LightCard extends ConsumerWidget {
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: Slider(
-                      value: lightState.intensity,
-                      min: 0,
-                      max: 100,
-                      onChanged: (newValue) {},
+                    child: SliderTheme(
+                      data: Theme.of(context).sliderTheme.copyWith(
+                            trackHeight: context.sliderTrackerHeight,
+                          ),
+                      child: Slider(
+                        value: lightState.intensity,
+                        min: 0,
+                        max: 100,
+                        onChanged: (newValue) {},
+                      ),
                     ),
                   ),
                 ],
@@ -190,12 +165,7 @@ class PowerCard extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               'POWER CONSUMPTION KWH',
-              style: theme.textTheme.labelSmall?.copyWith(
-                height: 1.2,
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+              style: context.titleTextStyle,
             ),
           ),
           Expanded(
@@ -234,7 +204,7 @@ class SwitchesRow extends ConsumerWidget {
             value: "TV",
           ),
         ),
-        const Gap.horizontal(homeItemsGap),
+        Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: SwitchCard(
             enabled: stereo,
@@ -243,7 +213,7 @@ class SwitchesRow extends ConsumerWidget {
             value: "STEREO",
           ),
         ),
-        const Gap.horizontal(homeItemsGap),
+        Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: SwitchCard(
             enabled: thermostat,
@@ -252,7 +222,7 @@ class SwitchesRow extends ConsumerWidget {
             value: "THERMOSTAT",
           ),
         ),
-        const Gap.horizontal(homeItemsGap),
+        Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: SwitchCard(
             enabled: fan,
@@ -282,8 +252,6 @@ class SwitchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return HomeContainer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -292,7 +260,7 @@ class SwitchCard extends StatelessWidget {
           Align(
             alignment: AlignmentDirectional.topEnd,
             child: Transform.scale(
-              scale: .6,
+              scale: context.switchScale,
               child: Switch(
                 value: enabled,
                 onChanged: onChanged,
@@ -304,11 +272,7 @@ class SwitchCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               title,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                height: 1.2,
-                fontSize: 8,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
-              ),
+              style: context.subtitleTextStyle,
             ),
           ),
           const Gap.vertical(2),
@@ -316,12 +280,7 @@ class SwitchCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               value,
-              style: theme.textTheme.labelSmall?.copyWith(
-                height: 1.2,
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+              style: context.titleTextStyle,
             ),
           ),
           const Gap.vertical(16),
@@ -353,14 +312,14 @@ class AirRelatedRow extends ConsumerWidget {
             value: airQuality.toUpperCase(),
           ),
         ),
-        const Gap.horizontal(homeItemsGap),
+        Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: AirRelatedCard(
             title: "TEMPERATURE",
             value: temperature.toUpperCase(),
           ),
         ),
-        const Gap.horizontal(homeItemsGap),
+        Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: AirRelatedCard(
             title: "HUMIDITY",
@@ -384,8 +343,6 @@ class AirRelatedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return HomeContainer(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -394,21 +351,12 @@ class AirRelatedCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              height: 1.2,
-              fontSize: 8,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
-            ),
+            style: context.subtitleTextStyle,
           ),
           const Gap.vertical(2),
           Text(
             value,
-            style: theme.textTheme.labelSmall?.copyWith(
-              height: 1.2,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            style: context.titleTextStyle,
           ),
         ],
       ),
@@ -431,8 +379,6 @@ class PowerChart extends StatefulWidget {
 }
 
 class PowerChartState extends State<PowerChart> {
-  final double width = 10;
-
   late List<BarChartGroupData> rawBarGroups;
   late List<BarChartGroupData> showingBarGroups;
 
@@ -509,11 +455,7 @@ class PowerChartState extends State<PowerChart> {
   }
 
   Widget leftTitles(double value, TitleMeta meta) {
-    final style = TextStyle(
-      color: Theme.of(context).colorScheme.onPrimaryContainer,
-      fontWeight: FontWeight.w400,
-      fontSize: 7,
-    );
+    final style = context.chartTextStyle;
 
     String text;
 
@@ -534,11 +476,7 @@ class PowerChartState extends State<PowerChart> {
 
     final Widget text = Text(
       titles[value.toInt()],
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
-        fontWeight: FontWeight.w400,
-        fontSize: 7,
-      ),
+      style: context.chartTextStyle,
     );
 
     return SideTitleWidget(
@@ -557,7 +495,7 @@ class PowerChartState extends State<PowerChart> {
         BarChartRodData(
           toY: y1,
           color: selected ? widget.selectedColor : widget.unselectedColor,
-          width: width,
+          width: 15,
         ),
       ],
     );
