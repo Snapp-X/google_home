@@ -36,7 +36,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
     //init the dbus client and remote object
     dbusClient = DBusClient.session();
     dBusRemoteObject = DBusRemoteObject(dbusClient,
-        name: 'com.example.SampleService', path: DBusObjectPath('/SomeObject'));
+        name: 'de.snapp.SampleService', path: DBusObjectPath('/SomeObject'));
 
     state = state.copyWith(
       todayWeather: const WeatherState(
@@ -63,7 +63,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   Future<void> _updateCO2Sensor() async {
     final response = await dBusRemoteObject.callMethod(
-        'com.example.SampleInterface', 'GetSensorValue', [],
+        'de.snapp.SampleInterface', 'GetSensorValue', [],
         replySignature: DBusSignature('as'));
 
     /// convert DBusArray to List
