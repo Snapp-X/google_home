@@ -43,9 +43,9 @@ class WeatherAnimation extends ConsumerWidget {
   String weatherTypeToAnimationName(WeatherType type) {
     return switch (type) {
       WeatherType.sunny => 'Sunny',
-      WeatherType.partiallySunny => 'Cloudy',
-      WeatherType.cloudy => 'Rainy',
-      WeatherType.rainy => 'Partially Cloudy',
+      WeatherType.partiallySunny => 'Partially Cloudy',
+      WeatherType.cloudy => 'Cloudy',
+      WeatherType.rainy => 'Rainy',
     };
   }
 }
