@@ -23,7 +23,7 @@ extension ResponsiveContext on BuildContext {
       screenBreakpoint == ScreenBreakpoints.small ? 14 : 25;
 
   double get switchScale =>
-      screenBreakpoint == ScreenBreakpoints.small ? .6 : 1.2;
+      screenBreakpoint == ScreenBreakpoints.small ? .6 : 1.6;
 
   TextStyle? get headerTextStyle =>
       Theme.of(this).textTheme.labelSmall?.copyWith(
