@@ -33,6 +33,10 @@ class _LampState extends ConsumerState<Lamp> {
           colourInput?.value = 0;
 
           return;
+        } else if (next.isOn && next.color == 0) {
+          colourInput?.value = 1;
+
+          return;
         }
 
         colourInput?.value = next.color.toDouble();

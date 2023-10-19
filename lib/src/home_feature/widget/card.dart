@@ -41,7 +41,7 @@ class WetherCard extends ConsumerWidget {
             style: context.titleTextStyle,
           ),
           const Gap.vertical(8),
-          Expanded(
+          const Expanded(
             flex: 3,
             child: WeatherAnimation(),
           ),

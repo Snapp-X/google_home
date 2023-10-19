@@ -6,7 +6,7 @@ import 'package:google_home/src/home_feature/home_state.dart';
 import 'package:rive/rive.dart';
 
 final weatherRiveProvider = FutureProvider<RiveFile>((ref) async {
-  final data = await rootBundle.load('assets/rive/weather2.riv');
+  final data = await rootBundle.load('assets/rive/weather.riv');
 
   final riveFile = RiveFile.import(data);
 
@@ -33,7 +33,7 @@ class WeatherAnimation extends ConsumerWidget {
             weatherTypeToAnimationName(
                 weather?.weatherType ?? WeatherType.sunny),
           ],
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
         );
       },
       orElse: () => const SizedBox.shrink(),
