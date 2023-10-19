@@ -9,8 +9,8 @@ import 'package:google_home/src/home_feature/widget/common.dart';
 import 'package:google_home/src/home_feature/widget/lamp.dart';
 import 'package:google_home/src/home_feature/widget/weather_animation.dart';
 
-class WetherCard extends ConsumerWidget {
-  const WetherCard({
+class WeatherCard extends ConsumerWidget {
+  const WeatherCard({
     super.key,
   });
 

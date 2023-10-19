@@ -22,7 +22,7 @@ class HomeView extends StatelessWidget {
             children: [
               const Expanded(
                 flex: 7,
-                child: WetherCard(),
+                child: WeatherCard(),
               ),
               Gap.horizontal(context.homeItemsGap),
               Expanded(
