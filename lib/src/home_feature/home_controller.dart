@@ -64,7 +64,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   Future<void> _updateCO2Sensor() async {
     final response = await dBusRemoteObject.callMethod(
         'de.snapp.SensorInterface', 'GetSensorValue', [],
-        replySignature: DBusSignature('sa'));
+        replySignature: DBusSignature('as'));
 
     /// convert DBusArray to List
     final result = List<String>.from(response.values[0].asStringArray());

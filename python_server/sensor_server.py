@@ -18,7 +18,7 @@ Wait for the client to connect:
 class Sensor(dbus.service.Object):
 
     @dbus.service.method("de.snapp.SensorInterface",
-                         in_signature='', out_signature='sa')
+                         in_signature='', out_signature='as')
     def GetSensorValue(self):
         # print the name of the bus name we are connected to
         print("GetSensorValue request:", session_bus.get_unique_name())
