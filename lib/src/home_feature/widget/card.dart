@@ -432,7 +432,7 @@ class SwitchCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               value,
-              style: context.titleTextStyle,
+              style: context.biggerTitleTextStyle,
             ),
           ),
           const Gap.vertical(16),
@@ -508,7 +508,7 @@ class AirRelatedCard extends StatelessWidget {
           const Gap.vertical(2),
           Text(
             value,
-            style: context.titleTextStyle,
+            style: context.biggerTitleTextStyle,
           ),
         ],
       ),
