@@ -15,9 +15,9 @@ Sensor Server Started Successfully
 Wait for the client to connect:
 """
 
-class SomeObject(dbus.service.Object):
+class Sensor(dbus.service.Object):
 
-    @dbus.service.method("de.snapp.SampleInterface",
+    @dbus.service.method("de.snapp.SensorInterface",
                          in_signature='', out_signature='as')
     def GetSensorValue(self):
         # print the name of the bus name we are connected to
@@ -27,7 +27,7 @@ class SomeObject(dbus.service.Object):
         return [f"Temperature: {temperature:.4f}°C", f"Humidity: {relative_humidity:.2f}%", f"CO2: {co2:.2f}PPM",
                 session_bus.get_unique_name()]
 
-    @dbus.service.method("de.snapp.SampleInterface",
+    @dbus.service.method("de.snapp.SensorInterface",
                          in_signature='', out_signature='')
     def Exit(self):
         mainloop.quit()
@@ -41,8 +41,8 @@ if __name__ == '__main__':
     device.start_periodic_measurement()
 
     session_bus = dbus.SessionBus()
-    name = dbus.service.BusName("de.snapp.SampleService", session_bus)
-    object = SomeObject(session_bus, '/SomeObject')
+    name = dbus.service.BusName("de.snapp.CoSensorService", session_bus)
+    object = Sensor(session_bus, '/Sensor')
 
     mainloop = GLib.MainLoop()
     print(usage)
