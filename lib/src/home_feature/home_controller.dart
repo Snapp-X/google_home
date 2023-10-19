@@ -15,7 +15,7 @@ final homeValuesProvider =
 class HomeValuesNotifier extends StateNotifier<HomeValues> {
   HomeValuesNotifier({required this.homeRepository})
       : super(const HomeValues()) {
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1000), (timer) {
       _updateCO2Sensor();
       _updateDateTime();
     });
@@ -64,7 +64,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   Future<void> _updateCO2Sensor() async {
     final response = await dBusRemoteObject.callMethod(
         'de.snapp.SensorInterface', 'GetSensorValue', [],
-        replySignature: DBusSignature('as'));
+        replySignature: DBusSignature('sensorsignature'));
 
     /// convert DBusArray to List
     final result = List<String>.from(response.values[0].asStringArray());
