@@ -7,6 +7,7 @@ import 'package:google_home/src/home_feature/home_state.dart';
 import 'package:google_home/src/home_feature/widget/color_picker.dart';
 import 'package:google_home/src/home_feature/widget/common.dart';
 import 'package:google_home/src/home_feature/widget/lamp.dart';
+import 'package:google_home/src/home_feature/widget/weather_animation.dart';
 
 class WetherCard extends ConsumerWidget {
   const WetherCard({
@@ -40,10 +41,9 @@ class WetherCard extends ConsumerWidget {
             style: context.titleTextStyle,
           ),
           const Gap.vertical(8),
-          const HomeContainer(
-            height: 150,
-            width: double.infinity,
-            color: Colors.white12,
+          Expanded(
+            flex: 3,
+            child: WeatherAnimation(),
           ),
           const Gap.vertical(8),
           Row(
@@ -122,7 +122,7 @@ class DayWeatherDetail extends StatelessWidget {
               WeatherType.cloudy => Icons.wb_cloudy,
               WeatherType.rainy => Icons.cloudy_snowing,
             },
-            size: 20,
+            size: 14,
           ),
           const Gap.horizontal(20),
           Text(
