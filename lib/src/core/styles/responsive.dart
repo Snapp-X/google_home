@@ -60,13 +60,13 @@ extension ResponsiveContext on BuildContext {
   TextStyle? get chartTextStyle =>
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
-            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 7 : 18,
+            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 7 : 12,
             fontWeight: FontWeight.w300,
             color: Theme.of(this).colorScheme.onSurface.withOpacity(.5),
           );
 
   double get chartBarWidth =>
-      screenBreakpoint == ScreenBreakpoints.small ? 10 : 28;
+      screenBreakpoint == ScreenBreakpoints.small ? 10 : 40;
 
   double get colorPickerItemBorder =>
       screenBreakpoint == ScreenBreakpoints.small ? 4 : 10;
