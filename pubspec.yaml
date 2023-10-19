@@ -20,6 +20,7 @@ dependencies:
   riverpod_annotation: ^2.2.0
   freezed_annotation: ^2.4.1
   rive: ^0.11.17
+  dbus: ^0.7.8
 
 dev_dependencies:
   flutter_test:
