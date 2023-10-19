@@ -21,9 +21,54 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
     state = state.copyWith(
       todayWeather: const WeatherState(
         temperature: '18.2°',
-        weatherType: WeatherType.rainy,
+        weatherType: WeatherType.sunny,
+        dayTemperature: DayTemperature(
+          min: 12,
+          max: 23,
+          current: 19,
+          possibleMin: 17,
+          possibleMax: 22,
+        ),
         city: 'London',
       ),
+      weekWeather: [
+        const WeatherState(
+          temperature: '18.2°',
+          weatherType: WeatherType.rainy,
+          dayTemperature: DayTemperature(
+            min: 13,
+            max: 24,
+            current: 17,
+            possibleMin: 15,
+            possibleMax: 18,
+          ),
+          city: 'London',
+        ),
+        const WeatherState(
+          temperature: '18.2°',
+          weatherType: WeatherType.cloudy,
+          dayTemperature: DayTemperature(
+            min: 12,
+            max: 25,
+            current: 17,
+            possibleMin: 16,
+            possibleMax: 23,
+          ),
+          city: 'London',
+        ),
+        const WeatherState(
+          temperature: '18.2°',
+          weatherType: WeatherType.partiallySunny,
+          dayTemperature: DayTemperature(
+            min: 11,
+            max: 22,
+            current: 17,
+            possibleMin: 16,
+            possibleMax: 21,
+          ),
+          city: 'London',
+        ),
+      ],
       tv: true,
       formattedTime: '01:20 AM',
       formattedDate: 'Thu, Oct 9 2023',
@@ -34,7 +79,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   }
 
   void toggleTv() {
-    // TODO(moritz): toggle the tv switch and change the tv state 
+    // TODO(moritz): toggle the tv switch and change the tv state
     //something like below example
 
     // homeRepository.httpService.get('endpoint');

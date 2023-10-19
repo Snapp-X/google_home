@@ -14,6 +14,7 @@ class HomeState with _$HomeState {
 class HomeValues with _$HomeValues {
   const factory HomeValues({
     WeatherState? todayWeather,
+    @Default([]) List<WeatherState> weekWeather,
     @Default(LightBulbState()) LightBulbState lightBulbState,
     @Default('') String formattedTime,
     @Default('') String formattedDate,
@@ -29,9 +30,9 @@ class HomeValues with _$HomeValues {
 
 enum WeatherType {
   sunny,
+  partiallySunny,
   cloudy,
   rainy,
-  snowy,
 }
 
 @freezed
@@ -39,8 +40,20 @@ class WeatherState with _$WeatherState {
   const factory WeatherState({
     @Default('0°') String temperature,
     @Default(WeatherType.sunny) WeatherType weatherType,
+    @Default(DayTemperature()) DayTemperature dayTemperature,
     @Default('London') String city,
   }) = _WeatherState;
+}
+
+@freezed
+class DayTemperature with _$DayTemperature {
+  const factory DayTemperature({
+    @Default(0.0) double min,
+    @Default(25.0) double max,
+    @Default(7.0) double current,
+    @Default(5.0) double possibleMin,
+    @Default(10.0) double possibleMax,
+  }) = _DayTemperatur;
 }
 
 @freezed

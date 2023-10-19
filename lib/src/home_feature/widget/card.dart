@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_home/src/core/styles/responsive.dart';
 import 'package:google_home/src/home_feature/home_controller.dart';
+import 'package:google_home/src/home_feature/home_state.dart';
 import 'package:google_home/src/home_feature/widget/color_picker.dart';
 import 'package:google_home/src/home_feature/widget/common.dart';
 import 'package:google_home/src/home_feature/widget/lamp.dart';
@@ -16,6 +17,8 @@ class WetherCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final weatherState =
         ref.watch(homeValuesProvider.select((value) => value.todayWeather));
+    final weekWeather =
+        ref.watch(homeValuesProvider.select((value) => value.weekWeather));
 
     final time =
         ref.watch(homeValuesProvider.select((value) => value.formattedTime));
@@ -59,6 +62,22 @@ class WetherCard extends ConsumerWidget {
               ),
             ],
           ),
+          if (weatherState != null) ...[
+            const Gap.vertical(12),
+            DayWeatherDetail(
+              dayTemperature: weatherState.dayTemperature,
+              weatherType: weatherState.weatherType,
+            ),
+            if (weekWeather.isNotEmpty)
+              ...weekWeather
+                  .map(
+                    (day) => DayWeatherDetail(
+                      dayTemperature: day.dayTemperature,
+                      weatherType: day.weatherType,
+                    ),
+                  )
+                  .toList()
+          ],
           const Spacer(),
           Text(
             time,
@@ -71,6 +90,123 @@ class WetherCard extends ConsumerWidget {
         ],
       ),
     );
+  }
+}
+
+class DayWeatherDetail extends StatelessWidget {
+  const DayWeatherDetail({
+    super.key,
+    required this.weatherType,
+    required this.dayTemperature,
+  });
+
+  final WeatherType weatherType;
+  final DayTemperature dayTemperature;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Today',
+              style: context.subtitleTextStyle,
+            ),
+          ),
+          Icon(
+            switch (weatherType) {
+              WeatherType.sunny => Icons.sunny,
+              WeatherType.partiallySunny => Icons.sunny_snowing,
+              WeatherType.cloudy => Icons.wb_cloudy,
+              WeatherType.rainy => Icons.cloudy_snowing,
+            },
+            size: 20,
+          ),
+          const Gap.horizontal(20),
+          Text(
+            '${dayTemperature.min}°',
+            style: context.subtitleTextStyle,
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              height: 5,
+              margin: const EdgeInsets.only(left: 12, right: 8),
+              child: LayoutBuilder(builder: (context, constraints) {
+                final left = convertRange(
+                  dayTemperature.min,
+                  dayTemperature.max,
+                  0,
+                  constraints.maxWidth,
+                  dayTemperature.possibleMin,
+                );
+
+                final right = convertRange(
+                  dayTemperature.min,
+                  dayTemperature.max,
+                  0,
+                  constraints.maxWidth,
+                  dayTemperature.possibleMax,
+                );
+
+                return Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        decoration: ShapeDecoration(
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned.fill(
+                      left: left,
+                      right: constraints.maxWidth - right,
+                      child: Container(
+                        height: 5,
+                        decoration: ShapeDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [
+                              Color(0xFFD4CE55),
+                              Color(0xFFE99F4A),
+                              Color(0xFFE57753)
+                            ],
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            ),
+          ),
+          Text(
+            '${dayTemperature.max}°',
+            style: context.subtitleTextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+
+  double convertRange(
+    double originalStart,
+    double originalEnd,
+    double newStart,
+    double newEnd,
+    double value,
+  ) {
+    double scale = (newEnd - newStart) / (originalEnd - originalStart);
+    return (newStart + ((value - originalStart) * scale));
   }
 }
 

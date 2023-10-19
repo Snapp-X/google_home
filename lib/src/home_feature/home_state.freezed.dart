@@ -576,6 +576,7 @@ abstract class _HomeStateError implements HomeState {
 /// @nodoc
 mixin _$HomeValues {
   WeatherState? get todayWeather => throw _privateConstructorUsedError;
+  List<WeatherState> get weekWeather => throw _privateConstructorUsedError;
   LightBulbState get lightBulbState => throw _privateConstructorUsedError;
   String get formattedTime => throw _privateConstructorUsedError;
   String get formattedDate => throw _privateConstructorUsedError;
@@ -600,6 +601,7 @@ abstract class $HomeValuesCopyWith<$Res> {
   @useResult
   $Res call(
       {WeatherState? todayWeather,
+      List<WeatherState> weekWeather,
       LightBulbState lightBulbState,
       String formattedTime,
       String formattedDate,
@@ -629,6 +631,7 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
   @override
   $Res call({
     Object? todayWeather = freezed,
+    Object? weekWeather = null,
     Object? lightBulbState = null,
     Object? formattedTime = null,
     Object? formattedDate = null,
@@ -645,6 +648,10 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
           ? _value.todayWeather
           : todayWeather // ignore: cast_nullable_to_non_nullable
               as WeatherState?,
+      weekWeather: null == weekWeather
+          ? _value.weekWeather
+          : weekWeather // ignore: cast_nullable_to_non_nullable
+              as List<WeatherState>,
       lightBulbState: null == lightBulbState
           ? _value.lightBulbState
           : lightBulbState // ignore: cast_nullable_to_non_nullable
@@ -719,6 +726,7 @@ abstract class _$$HomeValuesImplCopyWith<$Res>
   @useResult
   $Res call(
       {WeatherState? todayWeather,
+      List<WeatherState> weekWeather,
       LightBulbState lightBulbState,
       String formattedTime,
       String formattedDate,
@@ -748,6 +756,7 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todayWeather = freezed,
+    Object? weekWeather = null,
     Object? lightBulbState = null,
     Object? formattedTime = null,
     Object? formattedDate = null,
@@ -764,6 +773,10 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
           ? _value.todayWeather
           : todayWeather // ignore: cast_nullable_to_non_nullable
               as WeatherState?,
+      weekWeather: null == weekWeather
+          ? _value._weekWeather
+          : weekWeather // ignore: cast_nullable_to_non_nullable
+              as List<WeatherState>,
       lightBulbState: null == lightBulbState
           ? _value.lightBulbState
           : lightBulbState // ignore: cast_nullable_to_non_nullable
@@ -813,6 +826,7 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
 class _$HomeValuesImpl implements _HomeValues {
   const _$HomeValuesImpl(
       {this.todayWeather,
+      final List<WeatherState> weekWeather = const [],
       this.lightBulbState = const LightBulbState(),
       this.formattedTime = '',
       this.formattedDate = '',
@@ -822,10 +836,20 @@ class _$HomeValuesImpl implements _HomeValues {
       this.tv = false,
       this.stereo = false,
       this.thermostat = false,
-      this.fan = false});
+      this.fan = false})
+      : _weekWeather = weekWeather;
 
   @override
   final WeatherState? todayWeather;
+  final List<WeatherState> _weekWeather;
+  @override
+  @JsonKey()
+  List<WeatherState> get weekWeather {
+    if (_weekWeather is EqualUnmodifiableListView) return _weekWeather;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_weekWeather);
+  }
+
   @override
   @JsonKey()
   final LightBulbState lightBulbState;
@@ -859,7 +883,7 @@ class _$HomeValuesImpl implements _HomeValues {
 
   @override
   String toString() {
-    return 'HomeValues(todayWeather: $todayWeather, lightBulbState: $lightBulbState, formattedTime: $formattedTime, formattedDate: $formattedDate, airQuality: $airQuality, temperature: $temperature, humidity: $humidity, tv: $tv, stereo: $stereo, thermostat: $thermostat, fan: $fan)';
+    return 'HomeValues(todayWeather: $todayWeather, weekWeather: $weekWeather, lightBulbState: $lightBulbState, formattedTime: $formattedTime, formattedDate: $formattedDate, airQuality: $airQuality, temperature: $temperature, humidity: $humidity, tv: $tv, stereo: $stereo, thermostat: $thermostat, fan: $fan)';
   }
 
   @override
@@ -869,6 +893,8 @@ class _$HomeValuesImpl implements _HomeValues {
             other is _$HomeValuesImpl &&
             (identical(other.todayWeather, todayWeather) ||
                 other.todayWeather == todayWeather) &&
+            const DeepCollectionEquality()
+                .equals(other._weekWeather, _weekWeather) &&
             (identical(other.lightBulbState, lightBulbState) ||
                 other.lightBulbState == lightBulbState) &&
             (identical(other.formattedTime, formattedTime) ||
@@ -892,6 +918,7 @@ class _$HomeValuesImpl implements _HomeValues {
   int get hashCode => Object.hash(
       runtimeType,
       todayWeather,
+      const DeepCollectionEquality().hash(_weekWeather),
       lightBulbState,
       formattedTime,
       formattedDate,
@@ -913,6 +940,7 @@ class _$HomeValuesImpl implements _HomeValues {
 abstract class _HomeValues implements HomeValues {
   const factory _HomeValues(
       {final WeatherState? todayWeather,
+      final List<WeatherState> weekWeather,
       final LightBulbState lightBulbState,
       final String formattedTime,
       final String formattedDate,
@@ -926,6 +954,8 @@ abstract class _HomeValues implements HomeValues {
 
   @override
   WeatherState? get todayWeather;
+  @override
+  List<WeatherState> get weekWeather;
   @override
   LightBulbState get lightBulbState;
   @override
@@ -956,6 +986,7 @@ abstract class _HomeValues implements HomeValues {
 mixin _$WeatherState {
   String get temperature => throw _privateConstructorUsedError;
   WeatherType get weatherType => throw _privateConstructorUsedError;
+  DayTemperature get dayTemperature => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -969,7 +1000,13 @@ abstract class $WeatherStateCopyWith<$Res> {
           WeatherState value, $Res Function(WeatherState) then) =
       _$WeatherStateCopyWithImpl<$Res, WeatherState>;
   @useResult
-  $Res call({String temperature, WeatherType weatherType, String city});
+  $Res call(
+      {String temperature,
+      WeatherType weatherType,
+      DayTemperature dayTemperature,
+      String city});
+
+  $DayTemperatureCopyWith<$Res> get dayTemperature;
 }
 
 /// @nodoc
@@ -987,6 +1024,7 @@ class _$WeatherStateCopyWithImpl<$Res, $Val extends WeatherState>
   $Res call({
     Object? temperature = null,
     Object? weatherType = null,
+    Object? dayTemperature = null,
     Object? city = null,
   }) {
     return _then(_value.copyWith(
@@ -998,11 +1036,23 @@ class _$WeatherStateCopyWithImpl<$Res, $Val extends WeatherState>
           ? _value.weatherType
           : weatherType // ignore: cast_nullable_to_non_nullable
               as WeatherType,
+      dayTemperature: null == dayTemperature
+          ? _value.dayTemperature
+          : dayTemperature // ignore: cast_nullable_to_non_nullable
+              as DayTemperature,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DayTemperatureCopyWith<$Res> get dayTemperature {
+    return $DayTemperatureCopyWith<$Res>(_value.dayTemperature, (value) {
+      return _then(_value.copyWith(dayTemperature: value) as $Val);
+    });
   }
 }
 
@@ -1014,7 +1064,14 @@ abstract class _$$WeatherStateImplCopyWith<$Res>
       __$$WeatherStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String temperature, WeatherType weatherType, String city});
+  $Res call(
+      {String temperature,
+      WeatherType weatherType,
+      DayTemperature dayTemperature,
+      String city});
+
+  @override
+  $DayTemperatureCopyWith<$Res> get dayTemperature;
 }
 
 /// @nodoc
@@ -1030,6 +1087,7 @@ class __$$WeatherStateImplCopyWithImpl<$Res>
   $Res call({
     Object? temperature = null,
     Object? weatherType = null,
+    Object? dayTemperature = null,
     Object? city = null,
   }) {
     return _then(_$WeatherStateImpl(
@@ -1041,6 +1099,10 @@ class __$$WeatherStateImplCopyWithImpl<$Res>
           ? _value.weatherType
           : weatherType // ignore: cast_nullable_to_non_nullable
               as WeatherType,
+      dayTemperature: null == dayTemperature
+          ? _value.dayTemperature
+          : dayTemperature // ignore: cast_nullable_to_non_nullable
+              as DayTemperature,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -1055,6 +1117,7 @@ class _$WeatherStateImpl implements _WeatherState {
   const _$WeatherStateImpl(
       {this.temperature = '0°',
       this.weatherType = WeatherType.sunny,
+      this.dayTemperature = const DayTemperature(),
       this.city = 'London'});
 
   @override
@@ -1065,11 +1128,14 @@ class _$WeatherStateImpl implements _WeatherState {
   final WeatherType weatherType;
   @override
   @JsonKey()
+  final DayTemperature dayTemperature;
+  @override
+  @JsonKey()
   final String city;
 
   @override
   String toString() {
-    return 'WeatherState(temperature: $temperature, weatherType: $weatherType, city: $city)';
+    return 'WeatherState(temperature: $temperature, weatherType: $weatherType, dayTemperature: $dayTemperature, city: $city)';
   }
 
   @override
@@ -1081,11 +1147,14 @@ class _$WeatherStateImpl implements _WeatherState {
                 other.temperature == temperature) &&
             (identical(other.weatherType, weatherType) ||
                 other.weatherType == weatherType) &&
+            (identical(other.dayTemperature, dayTemperature) ||
+                other.dayTemperature == dayTemperature) &&
             (identical(other.city, city) || other.city == city));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, temperature, weatherType, city);
+  int get hashCode =>
+      Object.hash(runtimeType, temperature, weatherType, dayTemperature, city);
 
   @JsonKey(ignore: true)
   @override
@@ -1098,6 +1167,7 @@ abstract class _WeatherState implements WeatherState {
   const factory _WeatherState(
       {final String temperature,
       final WeatherType weatherType,
+      final DayTemperature dayTemperature,
       final String city}) = _$WeatherStateImpl;
 
   @override
@@ -1105,10 +1175,221 @@ abstract class _WeatherState implements WeatherState {
   @override
   WeatherType get weatherType;
   @override
+  DayTemperature get dayTemperature;
+  @override
   String get city;
   @override
   @JsonKey(ignore: true)
   _$$WeatherStateImplCopyWith<_$WeatherStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$DayTemperature {
+  double get min => throw _privateConstructorUsedError;
+  double get max => throw _privateConstructorUsedError;
+  double get current => throw _privateConstructorUsedError;
+  double get possibleMin => throw _privateConstructorUsedError;
+  double get possibleMax => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $DayTemperatureCopyWith<DayTemperature> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DayTemperatureCopyWith<$Res> {
+  factory $DayTemperatureCopyWith(
+          DayTemperature value, $Res Function(DayTemperature) then) =
+      _$DayTemperatureCopyWithImpl<$Res, DayTemperature>;
+  @useResult
+  $Res call(
+      {double min,
+      double max,
+      double current,
+      double possibleMin,
+      double possibleMax});
+}
+
+/// @nodoc
+class _$DayTemperatureCopyWithImpl<$Res, $Val extends DayTemperature>
+    implements $DayTemperatureCopyWith<$Res> {
+  _$DayTemperatureCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? min = null,
+    Object? max = null,
+    Object? current = null,
+    Object? possibleMin = null,
+    Object? possibleMax = null,
+  }) {
+    return _then(_value.copyWith(
+      min: null == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as double,
+      max: null == max
+          ? _value.max
+          : max // ignore: cast_nullable_to_non_nullable
+              as double,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as double,
+      possibleMin: null == possibleMin
+          ? _value.possibleMin
+          : possibleMin // ignore: cast_nullable_to_non_nullable
+              as double,
+      possibleMax: null == possibleMax
+          ? _value.possibleMax
+          : possibleMax // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DayTemperaturImplCopyWith<$Res>
+    implements $DayTemperatureCopyWith<$Res> {
+  factory _$$DayTemperaturImplCopyWith(
+          _$DayTemperaturImpl value, $Res Function(_$DayTemperaturImpl) then) =
+      __$$DayTemperaturImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {double min,
+      double max,
+      double current,
+      double possibleMin,
+      double possibleMax});
+}
+
+/// @nodoc
+class __$$DayTemperaturImplCopyWithImpl<$Res>
+    extends _$DayTemperatureCopyWithImpl<$Res, _$DayTemperaturImpl>
+    implements _$$DayTemperaturImplCopyWith<$Res> {
+  __$$DayTemperaturImplCopyWithImpl(
+      _$DayTemperaturImpl _value, $Res Function(_$DayTemperaturImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? min = null,
+    Object? max = null,
+    Object? current = null,
+    Object? possibleMin = null,
+    Object? possibleMax = null,
+  }) {
+    return _then(_$DayTemperaturImpl(
+      min: null == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as double,
+      max: null == max
+          ? _value.max
+          : max // ignore: cast_nullable_to_non_nullable
+              as double,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as double,
+      possibleMin: null == possibleMin
+          ? _value.possibleMin
+          : possibleMin // ignore: cast_nullable_to_non_nullable
+              as double,
+      possibleMax: null == possibleMax
+          ? _value.possibleMax
+          : possibleMax // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DayTemperaturImpl implements _DayTemperatur {
+  const _$DayTemperaturImpl(
+      {this.min = 0.0,
+      this.max = 25.0,
+      this.current = 7.0,
+      this.possibleMin = 5.0,
+      this.possibleMax = 10.0});
+
+  @override
+  @JsonKey()
+  final double min;
+  @override
+  @JsonKey()
+  final double max;
+  @override
+  @JsonKey()
+  final double current;
+  @override
+  @JsonKey()
+  final double possibleMin;
+  @override
+  @JsonKey()
+  final double possibleMax;
+
+  @override
+  String toString() {
+    return 'DayTemperature(min: $min, max: $max, current: $current, possibleMin: $possibleMin, possibleMax: $possibleMax)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DayTemperaturImpl &&
+            (identical(other.min, min) || other.min == min) &&
+            (identical(other.max, max) || other.max == max) &&
+            (identical(other.current, current) || other.current == current) &&
+            (identical(other.possibleMin, possibleMin) ||
+                other.possibleMin == possibleMin) &&
+            (identical(other.possibleMax, possibleMax) ||
+                other.possibleMax == possibleMax));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, min, max, current, possibleMin, possibleMax);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DayTemperaturImplCopyWith<_$DayTemperaturImpl> get copyWith =>
+      __$$DayTemperaturImplCopyWithImpl<_$DayTemperaturImpl>(this, _$identity);
+}
+
+abstract class _DayTemperatur implements DayTemperature {
+  const factory _DayTemperatur(
+      {final double min,
+      final double max,
+      final double current,
+      final double possibleMin,
+      final double possibleMax}) = _$DayTemperaturImpl;
+
+  @override
+  double get min;
+  @override
+  double get max;
+  @override
+  double get current;
+  @override
+  double get possibleMin;
+  @override
+  double get possibleMax;
+  @override
+  @JsonKey(ignore: true)
+  _$$DayTemperaturImplCopyWith<_$DayTemperaturImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
