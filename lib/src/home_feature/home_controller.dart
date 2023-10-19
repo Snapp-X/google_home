@@ -17,7 +17,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   HomeValuesNotifier({required this.homeRepository})
       : super(const HomeValues()) {
     Timer.periodic(const Duration(milliseconds: 1000), (timer) {
-      // _updateCO2Sensor();
+      _updateCO2Sensor();
       _updateDateTime();
     });
     _init();
@@ -25,7 +25,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   @override
   void dispose() {
-    // dbusClient.close();
+    dbusClient.close();
     super.dispose();
   }
 
@@ -35,9 +35,9 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   void _init() {
     //init the dbus client and remote object
-    // dbusClient = DBusClient.session();
-    // dBusRemoteObject = DBusRemoteObject(dbusClient,
-    //     name: 'de.snapp.CoSensorService', path: DBusObjectPath('/Sensor'));
+    dbusClient = DBusClient.session();
+    dBusRemoteObject = DBusRemoteObject(dbusClient,
+        name: 'de.snapp.CoSensorService', path: DBusObjectPath('/Sensor'));
     _initWeather();
     state = state.copyWith(
       todayWeather: const WeatherState(

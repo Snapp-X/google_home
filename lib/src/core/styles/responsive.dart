@@ -5,7 +5,7 @@ enum ScreenBreakpoints { small, medium }
 extension ResponsiveContext on BuildContext {
   ScreenBreakpoints get screenBreakpoint {
     final width = MediaQuery.of(this).size.width;
-    if (width <= 900) {
+    if (width <= 800) {
       return ScreenBreakpoints.small;
     } else {
       return ScreenBreakpoints.medium;
