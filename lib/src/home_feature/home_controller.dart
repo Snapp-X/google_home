@@ -15,7 +15,7 @@ final homeValuesProvider =
 class HomeValuesNotifier extends StateNotifier<HomeValues> {
   HomeValuesNotifier({required this.homeRepository})
       : super(const HomeValues()) {
-    Timer.periodic(const Duration(milliseconds: 16), (timer) {
+    Timer.periodic(const Duration(milliseconds: 100), (timer) {
       _updateCO2Sensor();
       _updateDateTime();
     });
@@ -24,7 +24,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   @override
   void dispose() {
-    // dbusClient.close();
+    dbusClient.close();
     super.dispose();
   }
 
@@ -34,9 +34,9 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   void _init() {
     //init the dbus client and remote object
-    // dbusClient = DBusClient.session();
-    // dBusRemoteObject = DBusRemoteObject(dbusClient,
-    //     name: 'de.snapp.SensorService', path: DBusObjectPath('/Core/Sensor'));
+    dbusClient = DBusClient.session();
+    dBusRemoteObject = DBusRemoteObject(dbusClient,
+        name: 'com.example.SampleService', path: DBusObjectPath('/SomeObject'));
 
     state = state.copyWith(
       todayWeather: const WeatherState(
@@ -62,22 +62,22 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   }
 
   Future<void> _updateCO2Sensor() async {
-    // final response = await dBusRemoteObject.callMethod(
-    //     'de.snapp.SensorInterface', 'GetSensorValue', [],
-    //     replySignature: DBusSignature('snapp.SensorValue'));
+    final response = await dBusRemoteObject.callMethod(
+        'com.example.SampleInterface', 'GetSensorValue', [],
+        replySignature: DBusSignature('as'));
 
-    // /// convert DBusArray to List
-    // final result = List<String>.from(response.values[0].asStringArray());
+    /// convert DBusArray to List
+    final result = List<String>.from(response.values[0].asStringArray());
 
-    // final temp = result[0];
-    // final hum = result[1];
-    // final co2 = result[2];
+    final temp = result[0];
+    final hum = result[1];
+    final co2 = result[2];
 
-    // state = state.copyWith(
-    //   airQuality: co2,
-    //   temperature: temp,
-    //   humidity: hum,
-    // );
+    state = state.copyWith(
+      airQuality: co2,
+      temperature: temp,
+      humidity: hum,
+    );
   }
 
   void toggleTv() {
