@@ -13,17 +13,17 @@ extension ResponsiveContext on BuildContext {
   }
 
   double get homeItemsGap =>
-      screenBreakpoint == ScreenBreakpoints.small ? 11 : 19;
+      screenBreakpoint == ScreenBreakpoints.small ? 11 : 22;
 
   EdgeInsets get viewPadding => screenBreakpoint == ScreenBreakpoints.small
       ? const EdgeInsets.symmetric(horizontal: 24, vertical: 32)
       : const EdgeInsets.symmetric(horizontal: 42, vertical: 52);
 
   double get sliderTrackerHeight =>
-      screenBreakpoint == ScreenBreakpoints.small ? 14 : 20;
+      screenBreakpoint == ScreenBreakpoints.small ? 14 : 25;
 
   double get switchScale =>
-      screenBreakpoint == ScreenBreakpoints.small ? .6 : .7;
+      screenBreakpoint == ScreenBreakpoints.small ? .6 : 1.2;
 
   TextStyle? get headerTextStyle =>
       Theme.of(this).textTheme.labelSmall?.copyWith(
@@ -36,7 +36,7 @@ extension ResponsiveContext on BuildContext {
   TextStyle? get subHeaderTextStyle =>
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
-            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 18 : 20,
+            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 18 : 34,
             fontWeight: FontWeight.w300,
             color: Theme.of(this).colorScheme.onSurface.withOpacity(.5),
           );
@@ -52,7 +52,7 @@ extension ResponsiveContext on BuildContext {
   TextStyle? get subtitleTextStyle =>
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
-            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 8 : 12,
+            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 8 : 24,
             fontWeight: FontWeight.w300,
             color: Theme.of(this).colorScheme.onSurface.withOpacity(.5),
           );
@@ -60,14 +60,14 @@ extension ResponsiveContext on BuildContext {
   TextStyle? get chartTextStyle =>
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
-            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 7 : 10,
+            fontSize: screenBreakpoint == ScreenBreakpoints.small ? 7 : 18,
             fontWeight: FontWeight.w300,
             color: Theme.of(this).colorScheme.onSurface.withOpacity(.5),
           );
 
   double get chartBarWidth =>
-      screenBreakpoint == ScreenBreakpoints.small ? 10 : 18;
+      screenBreakpoint == ScreenBreakpoints.small ? 10 : 28;
 
   double get colorPickerItemBorder =>
-      screenBreakpoint == ScreenBreakpoints.small ? 4 : 6;
+      screenBreakpoint == ScreenBreakpoints.small ? 4 : 10;
 }
