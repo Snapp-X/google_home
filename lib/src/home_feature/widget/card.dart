@@ -27,70 +27,73 @@ class WeatherCard extends ConsumerWidget {
     final date =
         ref.watch(homeValuesProvider.select((value) => value.formattedDate));
 
-    return HomeContainer(
-      height: double.infinity,
-      colorMode: ColorMode.gradient,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-      borderRadius: 20,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Gap.vertical(2),
-          Text(
-            'WEATHER',
-            style: context.titleTextStyle,
-          ),
-          const Gap.vertical(8),
-          Expanded(
-            flex: 3,
-            child: GestureDetector(
-              onTap: ref.read(homeValuesProvider.notifier).rotateWeatherType,
-              child: const WeatherAnimation(),
+    return GestureDetector(
+      onTap: ref.read(homeValuesProvider.notifier).rotateWeatherType,
+      child: HomeContainer(
+        height: double.infinity,
+        colorMode: ColorMode.gradient,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+        borderRadius: 20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Gap.vertical(2),
+            Text(
+              'WEATHER',
+              style: context.titleTextStyle,
             ),
-          ),
-          const Gap.vertical(8),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  weatherState?.temperature ?? '',
-                  style: context.headerTextStyle,
-                ),
+            const Gap.vertical(8),
+            Expanded(
+              flex: 3,
+              child: GestureDetector(
+                onTap: ref.read(homeValuesProvider.notifier).rotateWeatherType,
+                child: const WeatherAnimation(),
               ),
-              Expanded(
-                child: Text(
-                  '${weatherState?.weatherType.name ?? ''}\n${weatherState?.city ?? ''}',
-                  style: context.subtitleTextStyle,
+            ),
+            const Gap.vertical(8),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    weatherState?.temperature ?? '',
+                    style: context.headerTextStyle,
+                  ),
                 ),
+                Expanded(
+                  child: Text(
+                    '${weatherState?.weatherType.name ?? ''}\n${weatherState?.city ?? ''}',
+                    style: context.subtitleTextStyle,
+                  ),
+                ),
+              ],
+            ),
+            if (weatherState != null) ...[
+              const Gap.vertical(12),
+              DayWeatherDetail(
+                dayTemperature: weatherState.dayTemperature,
+                weatherType: weatherState.weatherType,
               ),
+              if (weekWeather.isNotEmpty)
+                ...weekWeather
+                    .map(
+                      (day) => DayWeatherDetail(
+                        dayTemperature: day.dayTemperature,
+                        weatherType: day.weatherType,
+                      ),
+                    )
+                    .toList()
             ],
-          ),
-          if (weatherState != null) ...[
-            const Gap.vertical(12),
-            DayWeatherDetail(
-              dayTemperature: weatherState.dayTemperature,
-              weatherType: weatherState.weatherType,
+            const Spacer(),
+            Text(
+              time,
+              style: context.headerTextStyle,
             ),
-            if (weekWeather.isNotEmpty)
-              ...weekWeather
-                  .map(
-                    (day) => DayWeatherDetail(
-                      dayTemperature: day.dayTemperature,
-                      weatherType: day.weatherType,
-                    ),
-                  )
-                  .toList()
+            Text(
+              date,
+              style: context.subHeaderTextStyle,
+            ),
           ],
-          const Spacer(),
-          Text(
-            time,
-            style: context.headerTextStyle,
-          ),
-          Text(
-            date,
-            style: context.subHeaderTextStyle,
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dbus/dbus.dart';
+import 'package:google_home/src/core/services/extensions.dart';
 import 'package:google_home/src/home_feature/home_repository.dart';
 import 'package:google_home/src/home_feature/home_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +17,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   HomeValuesNotifier({required this.homeRepository})
       : super(const HomeValues()) {
     Timer.periodic(const Duration(milliseconds: 1000), (timer) {
-      _updateCO2Sensor();
+      // _updateCO2Sensor();
       _updateDateTime();
     });
     _init();
@@ -24,7 +25,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   @override
   void dispose() {
-    dbusClient.close();
+    // dbusClient.close();
     super.dispose();
   }
 
@@ -34,10 +35,10 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   void _init() {
     //init the dbus client and remote object
-    dbusClient = DBusClient.session();
-    dBusRemoteObject = DBusRemoteObject(dbusClient,
-        name: 'de.snapp.CoSensorService', path: DBusObjectPath('/Sensor'));
-
+    // dbusClient = DBusClient.session();
+    // dBusRemoteObject = DBusRemoteObject(dbusClient,
+    //     name: 'de.snapp.CoSensorService', path: DBusObjectPath('/Sensor'));
+    _initWeather();
     state = state.copyWith(
       todayWeather: const WeatherState(
         temperature: '18.2°',
@@ -48,7 +49,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
     );
   }
 
-  void _updateDateTime() {
+  void _initWeather() {
     state = state.copyWith(
       todayWeather: const WeatherState(
         temperature: '18.2°',
@@ -100,9 +101,13 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
           city: 'London',
         ),
       ],
-      tv: true,
-      formattedTime: '01:20 AM',
-      formattedDate: 'Thu, Oct 9 2023',
+    );
+  }
+
+  void _updateDateTime() {
+    state = state.copyWith(
+      formattedDate: DateTime.now().toDateString(),
+      formattedTime: DateTime.now().toTimeString(),
     );
   }
 
@@ -164,27 +169,33 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
 
   rotateWeatherType() {
     final currentType = state.todayWeather?.weatherType ?? WeatherType.sunny;
-    return switch (currentType) {
-      WeatherType.sunny => state.copyWith(
+
+    switch (currentType) {
+      case WeatherType.sunny:
+        state = state.copyWith(
           todayWeather: state.todayWeather?.copyWith(
             weatherType: WeatherType.partiallySunny,
           ),
-        ),
-      WeatherType.partiallySunny => state.copyWith(
+        );
+      case WeatherType.partiallySunny:
+        state = state.copyWith(
           todayWeather: state.todayWeather?.copyWith(
             weatherType: WeatherType.cloudy,
           ),
-        ),
-      WeatherType.cloudy => state.copyWith(
+        );
+      case WeatherType.cloudy:
+        state = state.copyWith(
           todayWeather: state.todayWeather?.copyWith(
             weatherType: WeatherType.rainy,
           ),
-        ),
-      WeatherType.rainy => state.copyWith(
+        );
+      case WeatherType.rainy:
+        state = state.copyWith(
           todayWeather: state.todayWeather?.copyWith(
             weatherType: WeatherType.sunny,
           ),
-        ),
-    };
+        );
+    }
+    ;
   }
 }
