@@ -41,9 +41,13 @@ class WeatherCard extends ConsumerWidget {
             style: context.titleTextStyle,
           ),
           const Gap.vertical(8),
-          const Expanded(
-            flex: 3,
-            child: WeatherAnimation(),
+          GestureDetector(
+            onTap: () =>
+                ref.read(homeValuesProvider.notifier).rotateWeatherType(),
+            child: const Expanded(
+              flex: 3,
+              child: WeatherAnimation(),
+            ),
           ),
           const Gap.vertical(8),
           Row(

@@ -161,4 +161,30 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
       ),
     );
   }
+
+  rotateWeatherType() {
+    final currentType = state.todayWeather?.weatherType ?? WeatherType.sunny;
+    return switch (currentType) {
+      WeatherType.sunny => state.copyWith(
+          todayWeather: state.todayWeather?.copyWith(
+            weatherType: WeatherType.partiallySunny,
+          ),
+        ),
+      WeatherType.partiallySunny => state.copyWith(
+          todayWeather: state.todayWeather?.copyWith(
+            weatherType: WeatherType.cloudy,
+          ),
+        ),
+      WeatherType.cloudy => state.copyWith(
+          todayWeather: state.todayWeather?.copyWith(
+            weatherType: WeatherType.rainy,
+          ),
+        ),
+      WeatherType.rainy => state.copyWith(
+          todayWeather: state.todayWeather?.copyWith(
+            weatherType: WeatherType.sunny,
+          ),
+        ),
+    };
+  }
 }
