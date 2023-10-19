@@ -251,15 +251,18 @@ class LightCard extends ConsumerWidget {
                         'LIGHT',
                         style: context.titleTextStyle,
                       ),
-                      Transform.scale(
-                        scale: context.switchScale,
-                        child: Switch(
-                          value: lightState.isOn,
-                          onChanged: (value) {
-                            ref
-                                .read(homeValuesProvider.notifier)
-                                .toggleLightBulb();
-                          },
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Transform.scale(
+                          scale: context.switchScale,
+                          child: Switch(
+                            value: lightState.isOn,
+                            onChanged: (value) {
+                              ref
+                                  .read(homeValuesProvider.notifier)
+                                  .toggleLightBulb();
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -406,7 +409,7 @@ class SwitchCard extends StatelessWidget {
           Align(
             alignment: AlignmentDirectional.topEnd,
             child: Padding(
-              padding: const EdgeInsets.only(top: 8, right: 8),
+              padding: const EdgeInsets.only(top: 16, right: 16),
               child: Transform.scale(
                 scale: context.switchScale,
                 child: Switch(
