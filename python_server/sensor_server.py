@@ -15,9 +15,6 @@ Sensor Server Started Successfully
 Wait for the client to connect:
 """
 
-class DemoException(dbus.DBusException):
-    _dbus_error_name = 'de.snapp.SensorException'
-
 class SomeObject(dbus.service.Object):
 
     @dbus.service.method("de.snapp.SampleInterface",
