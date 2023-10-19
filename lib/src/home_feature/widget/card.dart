@@ -405,11 +405,14 @@ class SwitchCard extends StatelessWidget {
         children: [
           Align(
             alignment: AlignmentDirectional.topEnd,
-            child: Transform.scale(
-              scale: context.switchScale,
-              child: Switch(
-                value: enabled,
-                onChanged: onChanged,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8, right: 8),
+              child: Transform.scale(
+                scale: context.switchScale,
+                child: Switch(
+                  value: enabled,
+                  onChanged: onChanged,
+                ),
               ),
             ),
           ),
@@ -585,7 +588,7 @@ class PowerChartState extends State<PowerChart> {
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 28,
+              reservedSize: 35,
               interval: 1,
               getTitlesWidget: leftTitles,
             ),

@@ -45,7 +45,7 @@ extension ResponsiveContext on BuildContext {
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
             fontSize: screenBreakpoint == ScreenBreakpoints.small ? 10 : 28,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: Theme.of(this).colorScheme.onSurface,
           );
 
@@ -53,7 +53,7 @@ extension ResponsiveContext on BuildContext {
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
             fontSize: screenBreakpoint == ScreenBreakpoints.small ? 8 : 24,
-            fontWeight: FontWeight.w300,
+            fontWeight: FontWeight.w400,
             color: Theme.of(this).colorScheme.onSurface.withOpacity(.5),
           );
 
@@ -66,7 +66,7 @@ extension ResponsiveContext on BuildContext {
           );
 
   double get chartBarWidth =>
-      screenBreakpoint == ScreenBreakpoints.small ? 10 : 40;
+      screenBreakpoint == ScreenBreakpoints.small ? 10 : 32;
 
   double get colorPickerItemBorder =>
       screenBreakpoint == ScreenBreakpoints.small ? 4 : 10;
