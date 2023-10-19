@@ -45,7 +45,7 @@ extension ResponsiveContext on BuildContext {
       Theme.of(this).textTheme.labelSmall?.copyWith(
             height: 1.2,
             fontSize: screenBreakpoint == ScreenBreakpoints.small ? 10 : 28,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
             color: Theme.of(this).colorScheme.onSurface,
           );
 
