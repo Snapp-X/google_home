@@ -21,10 +21,10 @@ class HomeValues with _$HomeValues {
     @Default('') String airQuality,
     @Default('') String temperature,
     @Default('') String humidity,
-    @Default(false) bool tv,
-    @Default(false) bool stereo,
-    @Default(false) bool thermostat,
-    @Default(false) bool fan,
+    @Default(false) bool plug1,
+    @Default(false) bool plug2,
+    @Default(false) bool plug3,
+    @Default(false) bool plug4,
   }) = _HomeValues;
 }
 

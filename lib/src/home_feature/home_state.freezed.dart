@@ -583,10 +583,10 @@ mixin _$HomeValues {
   String get airQuality => throw _privateConstructorUsedError;
   String get temperature => throw _privateConstructorUsedError;
   String get humidity => throw _privateConstructorUsedError;
-  bool get tv => throw _privateConstructorUsedError;
-  bool get stereo => throw _privateConstructorUsedError;
-  bool get thermostat => throw _privateConstructorUsedError;
-  bool get fan => throw _privateConstructorUsedError;
+  bool get plug1 => throw _privateConstructorUsedError;
+  bool get plug2 => throw _privateConstructorUsedError;
+  bool get plug3 => throw _privateConstructorUsedError;
+  bool get plug4 => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeValuesCopyWith<HomeValues> get copyWith =>
@@ -608,10 +608,10 @@ abstract class $HomeValuesCopyWith<$Res> {
       String airQuality,
       String temperature,
       String humidity,
-      bool tv,
-      bool stereo,
-      bool thermostat,
-      bool fan});
+      bool plug1,
+      bool plug2,
+      bool plug3,
+      bool plug4});
 
   $WeatherStateCopyWith<$Res>? get todayWeather;
   $LightBulbStateCopyWith<$Res> get lightBulbState;
@@ -638,10 +638,10 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
     Object? airQuality = null,
     Object? temperature = null,
     Object? humidity = null,
-    Object? tv = null,
-    Object? stereo = null,
-    Object? thermostat = null,
-    Object? fan = null,
+    Object? plug1 = null,
+    Object? plug2 = null,
+    Object? plug3 = null,
+    Object? plug4 = null,
   }) {
     return _then(_value.copyWith(
       todayWeather: freezed == todayWeather
@@ -676,21 +676,21 @@ class _$HomeValuesCopyWithImpl<$Res, $Val extends HomeValues>
           ? _value.humidity
           : humidity // ignore: cast_nullable_to_non_nullable
               as String,
-      tv: null == tv
-          ? _value.tv
-          : tv // ignore: cast_nullable_to_non_nullable
+      plug1: null == plug1
+          ? _value.plug1
+          : plug1 // ignore: cast_nullable_to_non_nullable
               as bool,
-      stereo: null == stereo
-          ? _value.stereo
-          : stereo // ignore: cast_nullable_to_non_nullable
+      plug2: null == plug2
+          ? _value.plug2
+          : plug2 // ignore: cast_nullable_to_non_nullable
               as bool,
-      thermostat: null == thermostat
-          ? _value.thermostat
-          : thermostat // ignore: cast_nullable_to_non_nullable
+      plug3: null == plug3
+          ? _value.plug3
+          : plug3 // ignore: cast_nullable_to_non_nullable
               as bool,
-      fan: null == fan
-          ? _value.fan
-          : fan // ignore: cast_nullable_to_non_nullable
+      plug4: null == plug4
+          ? _value.plug4
+          : plug4 // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -733,10 +733,10 @@ abstract class _$$HomeValuesImplCopyWith<$Res>
       String airQuality,
       String temperature,
       String humidity,
-      bool tv,
-      bool stereo,
-      bool thermostat,
-      bool fan});
+      bool plug1,
+      bool plug2,
+      bool plug3,
+      bool plug4});
 
   @override
   $WeatherStateCopyWith<$Res>? get todayWeather;
@@ -763,10 +763,10 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
     Object? airQuality = null,
     Object? temperature = null,
     Object? humidity = null,
-    Object? tv = null,
-    Object? stereo = null,
-    Object? thermostat = null,
-    Object? fan = null,
+    Object? plug1 = null,
+    Object? plug2 = null,
+    Object? plug3 = null,
+    Object? plug4 = null,
   }) {
     return _then(_$HomeValuesImpl(
       todayWeather: freezed == todayWeather
@@ -801,21 +801,21 @@ class __$$HomeValuesImplCopyWithImpl<$Res>
           ? _value.humidity
           : humidity // ignore: cast_nullable_to_non_nullable
               as String,
-      tv: null == tv
-          ? _value.tv
-          : tv // ignore: cast_nullable_to_non_nullable
+      plug1: null == plug1
+          ? _value.plug1
+          : plug1 // ignore: cast_nullable_to_non_nullable
               as bool,
-      stereo: null == stereo
-          ? _value.stereo
-          : stereo // ignore: cast_nullable_to_non_nullable
+      plug2: null == plug2
+          ? _value.plug2
+          : plug2 // ignore: cast_nullable_to_non_nullable
               as bool,
-      thermostat: null == thermostat
-          ? _value.thermostat
-          : thermostat // ignore: cast_nullable_to_non_nullable
+      plug3: null == plug3
+          ? _value.plug3
+          : plug3 // ignore: cast_nullable_to_non_nullable
               as bool,
-      fan: null == fan
-          ? _value.fan
-          : fan // ignore: cast_nullable_to_non_nullable
+      plug4: null == plug4
+          ? _value.plug4
+          : plug4 // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -833,10 +833,10 @@ class _$HomeValuesImpl implements _HomeValues {
       this.airQuality = '',
       this.temperature = '',
       this.humidity = '',
-      this.tv = false,
-      this.stereo = false,
-      this.thermostat = false,
-      this.fan = false})
+      this.plug1 = false,
+      this.plug2 = false,
+      this.plug3 = false,
+      this.plug4 = false})
       : _weekWeather = weekWeather;
 
   @override
@@ -870,20 +870,20 @@ class _$HomeValuesImpl implements _HomeValues {
   final String humidity;
   @override
   @JsonKey()
-  final bool tv;
+  final bool plug1;
   @override
   @JsonKey()
-  final bool stereo;
+  final bool plug2;
   @override
   @JsonKey()
-  final bool thermostat;
+  final bool plug3;
   @override
   @JsonKey()
-  final bool fan;
+  final bool plug4;
 
   @override
   String toString() {
-    return 'HomeValues(todayWeather: $todayWeather, weekWeather: $weekWeather, lightBulbState: $lightBulbState, formattedTime: $formattedTime, formattedDate: $formattedDate, airQuality: $airQuality, temperature: $temperature, humidity: $humidity, tv: $tv, stereo: $stereo, thermostat: $thermostat, fan: $fan)';
+    return 'HomeValues(todayWeather: $todayWeather, weekWeather: $weekWeather, lightBulbState: $lightBulbState, formattedTime: $formattedTime, formattedDate: $formattedDate, airQuality: $airQuality, temperature: $temperature, humidity: $humidity, plug1: $plug1, plug2: $plug2, plug3: $plug3, plug4: $plug4)';
   }
 
   @override
@@ -907,11 +907,10 @@ class _$HomeValuesImpl implements _HomeValues {
                 other.temperature == temperature) &&
             (identical(other.humidity, humidity) ||
                 other.humidity == humidity) &&
-            (identical(other.tv, tv) || other.tv == tv) &&
-            (identical(other.stereo, stereo) || other.stereo == stereo) &&
-            (identical(other.thermostat, thermostat) ||
-                other.thermostat == thermostat) &&
-            (identical(other.fan, fan) || other.fan == fan));
+            (identical(other.plug1, plug1) || other.plug1 == plug1) &&
+            (identical(other.plug2, plug2) || other.plug2 == plug2) &&
+            (identical(other.plug3, plug3) || other.plug3 == plug3) &&
+            (identical(other.plug4, plug4) || other.plug4 == plug4));
   }
 
   @override
@@ -925,10 +924,10 @@ class _$HomeValuesImpl implements _HomeValues {
       airQuality,
       temperature,
       humidity,
-      tv,
-      stereo,
-      thermostat,
-      fan);
+      plug1,
+      plug2,
+      plug3,
+      plug4);
 
   @JsonKey(ignore: true)
   @override
@@ -947,10 +946,10 @@ abstract class _HomeValues implements HomeValues {
       final String airQuality,
       final String temperature,
       final String humidity,
-      final bool tv,
-      final bool stereo,
-      final bool thermostat,
-      final bool fan}) = _$HomeValuesImpl;
+      final bool plug1,
+      final bool plug2,
+      final bool plug3,
+      final bool plug4}) = _$HomeValuesImpl;
 
   @override
   WeatherState? get todayWeather;
@@ -969,13 +968,13 @@ abstract class _HomeValues implements HomeValues {
   @override
   String get humidity;
   @override
-  bool get tv;
+  bool get plug1;
   @override
-  bool get stereo;
+  bool get plug2;
   @override
-  bool get thermostat;
+  bool get plug3;
   @override
-  bool get fan;
+  bool get plug4;
   @override
   @JsonKey(ignore: true)
   _$$HomeValuesImplCopyWith<_$HomeValuesImpl> get copyWith =>
@@ -1494,7 +1493,7 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
 
 class _$LightBulbStateImpl implements _LightBulbState {
   const _$LightBulbStateImpl(
-      {this.isOn = false, this.colorIndex = 0, this.intensity = 70});
+      {this.isOn = false, this.colorIndex = 0, this.intensity = 10});
 
   @override
   @JsonKey()

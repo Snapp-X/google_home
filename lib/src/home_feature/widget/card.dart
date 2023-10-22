@@ -343,48 +343,48 @@ class SwitchesRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tv = ref.watch(homeValuesProvider.select((value) => value.tv));
-    final stereo =
-        ref.watch(homeValuesProvider.select((value) => value.stereo));
-    final thermostat =
-        ref.watch(homeValuesProvider.select((value) => value.thermostat));
-    final fan = ref.watch(homeValuesProvider.select((value) => value.fan));
+    final plug1 = ref.watch(homeValuesProvider.select((value) => value.plug1));
+    final plug2 = ref.watch(homeValuesProvider.select((value) => value.plug2));
+    final plug3 = ref.watch(homeValuesProvider.select((value) => value.plug3));
+    final plug4 = ref.watch(homeValuesProvider.select((value) => value.plug4));
 
     return Row(
       children: [
         Expanded(
           child: SwitchCard(
-            enabled: tv,
-            onChanged: (value) {},
+            enabled: plug1,
+            onChanged: (value) {
+              ref.read(homeValuesProvider.notifier).togglePlug1();
+            },
             title: "LIVING ROOM",
-            value: "TV",
+            value: "Mr. Meeseeks",
           ),
         ),
         Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: SwitchCard(
-            enabled: stereo,
+            enabled: plug2,
             onChanged: (value) {},
             title: "LIVING ROOM",
-            value: "STEREO",
+            value: "Stereo",
           ),
         ),
         Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: SwitchCard(
-            enabled: thermostat,
+            enabled: plug3,
             onChanged: (value) {},
             title: "LIVING ROOM",
-            value: "THERMOSTAT",
+            value: "Tv",
           ),
         ),
         Gap.horizontal(context.homeItemsGap),
         Expanded(
           child: SwitchCard(
-            enabled: fan,
+            enabled: plug4,
             onChanged: (value) {},
             title: "LIVING ROOM",
-            value: "FAN",
+            value: "Fan",
           ),
         ),
       ],
@@ -416,7 +416,7 @@ class SwitchCard extends StatelessWidget {
           Align(
             alignment: AlignmentDirectional.topEnd,
             child: Padding(
-              padding: const EdgeInsets.only(top: 16, right: 16),
+              padding: const EdgeInsets.only(top: 16, right: 24),
               child: Transform.scale(
                 scale: context.switchScale,
                 child: Switch(

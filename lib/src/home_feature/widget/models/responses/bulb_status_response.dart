@@ -19,7 +19,7 @@ class BulbStatusResponse {
   BulbStatus toBulbStatus() {
     return BulbStatus(
       //Convert from Response to Model
-      lights: lights.map((light) => light.toLight()).toList(),
+      lights: lights.map((lightResponse) => lightResponse.toLight()).toList(),
     );
   }
 }

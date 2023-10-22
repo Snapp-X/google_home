@@ -38,21 +38,20 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
   final HomeRepository homeRepository;
   late final DBusClient dbusClient;
   late final DBusRemoteObject dBusRemoteObject;
+  // These are used to skip one status update, if it the value was just changed
+  bool skipNextBulbUpdate = false;
+  bool skipNextPlugUpdate = false;
 
   void _init() {
     _initDbus();
     _initWeather();
-    state = state.copyWith(
-      todayWeather: const WeatherState(
-        temperature: '18.2°',
-        weatherType: WeatherType.rainy,
-        city: 'London',
-      ),
-      tv: true,
-    );
   }
 
-  Future<void> _getShellyDeviceStatus() async {
+  Future<void> _getBulbStatus() async {
+    if (skipNextBulbUpdate) {
+      skipNextBulbUpdate = false;
+      return;
+    }
     final bulbStatus = await homeRepository.getBulbStatus();
     bulbStatus.fold(
       (exception) => null,
@@ -65,6 +64,27 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
         )));
       },
     );
+  }
+
+  Future<void> _getPlugStatus() async {
+    if (skipNextPlugUpdate) {
+      skipNextPlugUpdate = false;
+      return;
+    }
+    final plug1Status = await homeRepository.getPlugStatus(1);
+    plug1Status.fold(
+      (exception) => null,
+      (plugStatus) {
+        state = state.copyWith(
+          plug1: plugStatus.relays.first.ison,
+        );
+      },
+    );
+  }
+
+  Future<void> _getShellyDeviceStatus() async {
+    await _getBulbStatus();
+    await _getPlugStatus();
   }
 
   void _initDbus() {
@@ -157,15 +177,15 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
     );
   }
 
-  void toggleTv() {
-    // TODO(moritz): toggle the tv switch and change the tv state
-    //something like below example
-
-    // homeRepository.httpService.get('endpoint');
-
-    // state = state.copyWith(
-    //   tv: !state.tv,
-    // );
+  Future<void> togglePlug1() async {
+    final relay = await homeRepository.setPlug(1, !state.plug1);
+    relay.fold(
+      (exception) => null,
+      (relay) {
+        state = state.copyWith(plug1: relay.ison);
+        skipNextPlugUpdate = true;
+      },
+    );
   }
 
   Future<void> toggleLightBulb() async {
@@ -177,6 +197,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
             lightBulbState: state.lightBulbState.copyWith(
           isOn: light.ison,
         ));
+        skipNextBulbUpdate = true;
       },
     );
   }
@@ -198,6 +219,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
           isOn: light.ison,
           intensity: light.gain,
         ));
+        skipNextBulbUpdate = true;
       },
     );
   }
@@ -234,6 +256,7 @@ class HomeValuesNotifier extends StateNotifier<HomeValues> {
             colorIndex: effectiveColor,
           ),
         );
+        skipNextBulbUpdate = true;
       },
     );
   }
