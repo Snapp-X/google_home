@@ -60,7 +60,7 @@ class DayTemperature with _$DayTemperature {
 class LightBulbState with _$LightBulbState {
   const factory LightBulbState({
     @Default(false) bool isOn,
-    @Default(0) int color,
-    @Default(70.0) double intensity,
+    @Default(0) int colorIndex,
+    @Default(10) int intensity,
   }) = _LightBulbState;
 }

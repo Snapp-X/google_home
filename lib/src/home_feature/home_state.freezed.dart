@@ -1396,8 +1396,8 @@ abstract class _DayTemperatur implements DayTemperature {
 /// @nodoc
 mixin _$LightBulbState {
   bool get isOn => throw _privateConstructorUsedError;
-  int get color => throw _privateConstructorUsedError;
-  double get intensity => throw _privateConstructorUsedError;
+  int get colorIndex => throw _privateConstructorUsedError;
+  int get intensity => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LightBulbStateCopyWith<LightBulbState> get copyWith =>
@@ -1410,7 +1410,7 @@ abstract class $LightBulbStateCopyWith<$Res> {
           LightBulbState value, $Res Function(LightBulbState) then) =
       _$LightBulbStateCopyWithImpl<$Res, LightBulbState>;
   @useResult
-  $Res call({bool isOn, int color, double intensity});
+  $Res call({bool isOn, int colorIndex, int intensity});
 }
 
 /// @nodoc
@@ -1427,7 +1427,7 @@ class _$LightBulbStateCopyWithImpl<$Res, $Val extends LightBulbState>
   @override
   $Res call({
     Object? isOn = null,
-    Object? color = null,
+    Object? colorIndex = null,
     Object? intensity = null,
   }) {
     return _then(_value.copyWith(
@@ -1435,14 +1435,14 @@ class _$LightBulbStateCopyWithImpl<$Res, $Val extends LightBulbState>
           ? _value.isOn
           : isOn // ignore: cast_nullable_to_non_nullable
               as bool,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
+      colorIndex: null == colorIndex
+          ? _value.colorIndex
+          : colorIndex // ignore: cast_nullable_to_non_nullable
               as int,
       intensity: null == intensity
           ? _value.intensity
           : intensity // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
     ) as $Val);
   }
 }
@@ -1455,7 +1455,7 @@ abstract class _$$LightBulbStateImplCopyWith<$Res>
       __$$LightBulbStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isOn, int color, double intensity});
+  $Res call({bool isOn, int colorIndex, int intensity});
 }
 
 /// @nodoc
@@ -1470,7 +1470,7 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isOn = null,
-    Object? color = null,
+    Object? colorIndex = null,
     Object? intensity = null,
   }) {
     return _then(_$LightBulbStateImpl(
@@ -1478,14 +1478,14 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
           ? _value.isOn
           : isOn // ignore: cast_nullable_to_non_nullable
               as bool,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
+      colorIndex: null == colorIndex
+          ? _value.colorIndex
+          : colorIndex // ignore: cast_nullable_to_non_nullable
               as int,
       intensity: null == intensity
           ? _value.intensity
           : intensity // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
     ));
   }
 }
@@ -1494,21 +1494,21 @@ class __$$LightBulbStateImplCopyWithImpl<$Res>
 
 class _$LightBulbStateImpl implements _LightBulbState {
   const _$LightBulbStateImpl(
-      {this.isOn = false, this.color = 0, this.intensity = 70.0});
+      {this.isOn = false, this.colorIndex = 0, this.intensity = 70});
 
   @override
   @JsonKey()
   final bool isOn;
   @override
   @JsonKey()
-  final int color;
+  final int colorIndex;
   @override
   @JsonKey()
-  final double intensity;
+  final int intensity;
 
   @override
   String toString() {
-    return 'LightBulbState(isOn: $isOn, color: $color, intensity: $intensity)';
+    return 'LightBulbState(isOn: $isOn, colorIndex: $colorIndex, intensity: $intensity)';
   }
 
   @override
@@ -1517,13 +1517,14 @@ class _$LightBulbStateImpl implements _LightBulbState {
         (other.runtimeType == runtimeType &&
             other is _$LightBulbStateImpl &&
             (identical(other.isOn, isOn) || other.isOn == isOn) &&
-            (identical(other.color, color) || other.color == color) &&
+            (identical(other.colorIndex, colorIndex) ||
+                other.colorIndex == colorIndex) &&
             (identical(other.intensity, intensity) ||
                 other.intensity == intensity));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isOn, color, intensity);
+  int get hashCode => Object.hash(runtimeType, isOn, colorIndex, intensity);
 
   @JsonKey(ignore: true)
   @override
@@ -1536,15 +1537,15 @@ class _$LightBulbStateImpl implements _LightBulbState {
 abstract class _LightBulbState implements LightBulbState {
   const factory _LightBulbState(
       {final bool isOn,
-      final int color,
-      final double intensity}) = _$LightBulbStateImpl;
+      final int colorIndex,
+      final int intensity}) = _$LightBulbStateImpl;
 
   @override
   bool get isOn;
   @override
-  int get color;
+  int get colorIndex;
   @override
-  double get intensity;
+  int get intensity;
   @override
   @JsonKey(ignore: true)
   _$$LightBulbStateImplCopyWith<_$LightBulbStateImpl> get copyWith =>

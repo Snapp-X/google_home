@@ -279,10 +279,17 @@ class LightCard extends ConsumerWidget {
                             trackHeight: context.sliderTrackerHeight,
                           ),
                       child: Slider(
-                        value: lightState.intensity,
+                        value: lightState.intensity.toDouble(),
                         min: 0,
                         max: 100,
-                        onChanged: (newValue) {},
+                        onChanged: ref
+                            .read(homeValuesProvider.notifier)
+                            .updateSliderPosition,
+                        onChangeEnd: (newValue) {
+                          ref
+                              .read(homeValuesProvider.notifier)
+                              .setLightBrightness(newValue.toInt());
+                        },
                       ),
                     ),
                   ),

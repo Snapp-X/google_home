@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_home/src/core/constants.dart';
 import 'package:google_home/src/core/styles/responsive.dart';
 import 'package:google_home/src/home_feature/home_controller.dart';
 
@@ -19,37 +20,37 @@ class ColorPicker extends ConsumerWidget {
       children: [
         Expanded(
           child: ColorPickerItem(
-            color: const Color(0xff709CEE),
-            isSelected: isActive && lightState.color == 2,
+            color: colorPick1,
+            isSelected: isActive && lightState.colorIndex == 2,
             onTap: () {
-              ref.read(homeValuesProvider.notifier).changeLightColour(2);
+              ref.read(homeValuesProvider.notifier).setLightColour(2);
             },
           ),
         ),
         Expanded(
           child: ColorPickerItem(
-            color: const Color(0xff716EEC),
-            isSelected: isActive && lightState.color == 3,
+            color: colorPick2,
+            isSelected: isActive && lightState.colorIndex == 3,
             onTap: () {
-              ref.read(homeValuesProvider.notifier).changeLightColour(3);
+              ref.read(homeValuesProvider.notifier).setLightColour(3);
             },
           ),
         ),
         Expanded(
           child: ColorPickerItem(
-            color: const Color(0xffEA4F47),
-            isSelected: isActive && lightState.color == 4,
+            color: colorPick3,
+            isSelected: isActive && lightState.colorIndex == 4,
             onTap: () {
-              ref.read(homeValuesProvider.notifier).changeLightColour(4);
+              ref.read(homeValuesProvider.notifier).setLightColour(4);
             },
           ),
         ),
         Expanded(
           child: ColorPickerItem(
-            color: const Color(0xffE57656),
-            isSelected: isActive && lightState.color == 5,
+            color: colorPick4,
+            isSelected: isActive && lightState.colorIndex == 5,
             onTap: () {
-              ref.read(homeValuesProvider.notifier).changeLightColour(5);
+              ref.read(homeValuesProvider.notifier).setLightColour(5);
             },
           ),
         ),
