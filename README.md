@@ -3,6 +3,12 @@
 
 This app is created with [Flutter](https://flutter.dev/ "Flutter") and is designed to demonstrate that [Flutter](https://flutter.dev/ "Flutter") runs seamlessly on Linux and Raspberry Pi platforms. It showcases the capability of Flutter's cross-platform development, particularly on embedded systems.  Additionally, we've integrated **[Rive](https://rive.app/ "Rive")** for our animations to showcase its seamless functionality within Linux applications.
 
+
+
+https://github.com/Snapp-Embedded/google_home/assets/47558577/e3a43734-2cd2-4224-92a0-0f27a6e8f3d3
+
+
+
 ## Powered by [snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")
 
 Our "google_home" app was made possible with **[snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")**, a time-saving tool for Flutter developers on Raspberry Pi. This Bash script automates Flutter environment setup, installs necessary dependencies, and supports kiosk mode. By leveraging  **[snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")**, we simplified the development and deployment of our app, ensuring a smooth experience for users setting up Flutter applications on their Raspberry Pi devices.
