@@ -1,30 +1,22 @@
-# google_home
 
-A new Flutter project.
+## google_home created with [Flutter](https://flutter.dev/ "Flutter")
 
-## Getting Started
+This app is created with [Flutter](https://flutter.dev/ "Flutter") and is designed to demonstrate that [Flutter](https://flutter.dev/ "Flutter") runs seamlessly on Linux and Raspberry Pi platforms. It showcases the capability of Flutter's cross-platform development, particularly on embedded systems.  Additionally, we've integrated **[Rive](https://rive.app/ "Rive")** for our animations to showcase its seamless functionality within Linux applications.
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+## Powered by [snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Our "google_home" app was made possible with **[snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")**, a time-saving tool for Flutter developers on Raspberry Pi. This Bash script automates Flutter environment setup, installs necessary dependencies, and supports kiosk mode. By leveraging  **[snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")**, we simplified the development and deployment of our app, ensuring a smooth experience for users setting up Flutter applications on their Raspberry Pi devices.
 
-## Assets
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+## D-Bus Integration
+**D-Bus** is a widely-used message bus system for inter-process communication on Linux and other Unix-like operating systems. It provides a standardized and language-agnostic way for different software components, running on the same machine or even on separate devices, to communicate and exchange data. D-Bus enables applications to interact with system services, other applications, and hardware devices seamlessly.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+In our "google_home" app, we've utilized D-Bus to seamlessly retrieve sensor information from a Python application. By establishing communication between our Dart-based app and the Python service using D-Bus, we've enabled real-time sensor data retrieval, enhancing the functionality and user experience of our application.
 
-## Localization
+You can find the Python exmaple in the following file:
 
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
+[**Python Dbus Server**](https://github.com/Snapp-Embedded/google_home/blob/main/python_server/sensor_server.py "Python Dbus Server") 
 
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+And the Dart Dbus Client implementation in the following file:
+
+[**Dart Dbus Client**](https://github.com/Snapp-Embedded/google_home/blob/main/lib/src/home_feature/home_controller.dart "**Dart Dbus Client**")
