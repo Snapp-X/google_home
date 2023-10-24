@@ -23,6 +23,6 @@ You can find the Python exmaple in the following file:
 
 [**Python Dbus Server**](https://github.com/Snapp-Embedded/google_home/blob/main/python_server/sensor_server.py "Python Dbus Server") 
 
-And the Dart Dbus Client implementation in the following file:
+And the Dart Dbus Client implementation in the following repo:
 
-[**Dart Dbus Client**](https://github.com/Snapp-Embedded/google_home/blob/main/lib/src/home_feature/home_controller.dart "**Dart Dbus Client**")
+[**Dart Dbus Client**](https://github.com/Snapp-Embedded/dart_dbus)
