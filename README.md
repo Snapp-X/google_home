@@ -17,7 +17,7 @@ Our "google_home" app was made possible with **[snapp_installer](https://github.
 ## D-Bus Integration
 **D-Bus** is a widely-used message bus system for inter-process communication on Linux and other Unix-like operating systems. It provides a standardized and language-agnostic way for different software components, running on the same machine or even on separate devices, to communicate and exchange data. D-Bus enables applications to interact with system services, other applications, and hardware devices seamlessly.
 
-In our "google_home" app, we've utilized D-Bus to seamlessly retrieve sensor information from a Python application. By establishing communication between our Dart-based app and the Python service using D-Bus, we've enabled real-time sensor data retrieval, enhancing the functionality and user experience of our application.
+In our "google_home" app, we've utilized D-Bus to seamlessly retrieve sensor information from a Python application. By establishing communication between our Dart-based app and the Python service using D-Bus, we've enabled a reliable and secure sensor data retrieval, enhancing the functionality and user experience of our application.
 
 You can find the Python exmaple in the following file:
 
