@@ -5,7 +5,7 @@ import 'package:google_home/src/home_feature/home_controller.dart';
 import 'package:rive/rive.dart';
 
 final lampRiveProvider = FutureProvider<RiveFile>((ref) async {
-  final data = await rootBundle.load('assets/rive/lamp2.riv');
+  final data = await rootBundle.load('assets/rive/lamp.riv');
 
   final riveFile = RiveFile.import(data);
 
