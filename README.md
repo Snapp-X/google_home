@@ -9,9 +9,10 @@ https://github.com/Snapp-Embedded/google_home/assets/47558577/e3a43734-2cd2-4224
 
 
 
-## Powered by [snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")
+## Powered by [snapp_cli](https://github.com/Snapp-Embedded/snapp_cli)
 
-Our "google_home" app was made possible with **[snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")**, a time-saving tool for Flutter developers on Raspberry Pi. This Bash script automates Flutter environment setup, installs necessary dependencies, and supports kiosk mode. By leveraging  **[snapp_installer](https://github.com/Snapp-Embedded/snapp_installer "snapp_installer")**, we simplified the development and deployment of our app, ensuring a smooth experience for users setting up Flutter applications on their Raspberry Pi devices.
+Our "google_home" app was made possible with **[snapp_cli](https://github.com/Snapp-Embedded/snapp_cli)**, a time-saving tool for Flutter developers. Which does everything
+from (remote) setting up your embedded device, to enabling remote development and debugging from your normal machine!
 
 
 ## D-Bus Integration
@@ -26,3 +27,7 @@ You can find the Python exmaple in the following file:
 And the Dart Dbus Client implementation in the following repo:
 
 [**Dart Dbus Client**](https://github.com/Snapp-Embedded/dart_dbus)
+
+A tutorial on how to implement those Libraries cna be found here: 
+
+[**Medium Article**](https://medium.com/snapp-embedded/interfacing-raspberry-pi-sensors-with-dart-and-flutter-using-d-bus-5203ceee1d9a)
